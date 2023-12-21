@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    color-scheme: light dark;
+    scroll-behavior: auto;
+}
+body {
+    font-family: "quicksand", sans-serif;
+    height: 100lvh;
+    width: 100lvh;
+}
+@media (min-width: 768px) { /* Adjust breakpoint as needed */
+    html {
+      scroll-behavior: smooth;
+    }
+}
+@media screen and (max-width: 950px) {
+    .main-content {
+        display: none;
+    }
+    .mobile-content {
+        display: block;
+    }
+}
+.text-2xs {
+    font-size: 0.6rem; /* 10px */
+    line-height: 0.9rem; /* 14px */
+}
+.text-3xs {
+    font-size: 0.5rem; /* 8px */
+    line-height: 0.6rem; /* 10px */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
