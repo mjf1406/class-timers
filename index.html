@@ -7,16 +7,180 @@
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
     <link rel="stylesheet" href="tailwind.css">
     <title>Class Timers</title>
+    <!-- Modules -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script> <!-- Tippy.js -->
+    <script src="https://unpkg.com/tippy.js@6"></script> <!-- Tippy.js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> <!-- Toastify.js -->
 </head>
-<body id="body" class="bg-slate-600 flex flex-row justify-center align-middle">
-    <div id="date" class="left-0 top-0 p-5 fixed text-5xl"></div>
-    <button id="settings" class="right-0 top-0 p-2 fixed m-2 bg-slate-400 rounded-md h-fit"><i class="fa-solid fa-gear"></i></button>
-    <div id="time" class=""></div>
+<body id="body" class="flex flex-row w-screen h-screen bg-slate-200 dark:bg-slate-600">
+    <div id="date" class="fixed top-0 left-0 p-5 text-4xl"></div>
+    <div class="fixed top-0 right-0 flex flex-row gap-1 mt-2 mr-2">
+        <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" name="timer-button" class="p-2 px-3 rounded-md bg-slate-400 h-fit"><i class="fa-solid fa-plus"></i></button>
+        <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
+        <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
+    </div>
+    <div class="flex flex-col self-center justify-center w-screen gap-2 align-middle">
+        <div id="time" class="self-center font-bold text-9xl"></div>
+        <div id="timer-buttons" class="flex flex-row self-center gap-2">
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">30s</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">1m</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">5m</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">10m</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">15m</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">20m</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">25m</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">30m</button>
+        </div>
+        <div id="custom-timers" class="flex flex-row self-center gap-2">
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">Quick Game</button>
+            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit">Hot Seat</button>
+            
+        </div>
+    </div>
+    <div id="footer" class="fixed bottom-0 left-0 flex flex-row justify-center w-full gap-1 mb-1 text-xs align-middle opacity-40">
+        Made with <i class="ml-1 mr-1 text-red-500 fa fa-heart" aria-hidden="true"></i> by Michael Fitzgerald. 
+        <div class="flex flex-row gap-1 ml-1" role="group" aria-label="">
+            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="LinkedIn"> 
+                <a href="https://www.linkedin.com/in/mfitz06/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+            </button>
+            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Github"> 
+                <a href="https://github.com/mjf1406" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+            </button>
+            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Portfolio"> 
+                <a href="https://mjf1406.github.io/portfolio/index.html" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-id-card"></i></a>
+            </button>
+            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
+                <a href="https://github.com/mjf1406/class-timers" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-code"></i></a>
+            </button>
+        </div>
+    </div>
+    
+
+
+
+
+    
+    
+    <!-- MODALS -->
+    
+    <div id="settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="settings-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-gear"></i> Settings</h3>
+                    <form class="space-y-3" action="#">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration</label>
+                        <input type="number" id="transition-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input a number in seconds">
+                        
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Clock</label>
+                        <div class="flex flex-row items-center gap-1 justify-items-start">
+                            <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="clock-color" value="#2563eb" title="Choose your color">
+                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="clock-shape"></div>
+                        </div>
+                        
+
+
+
+                        <div class="flex flex-row gap-2">
+                            <button type="submit" id="save-settings" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            <button type="submit" id="cancel-settings" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="settings-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="centers-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="centers-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-repeat"></i> Centers</h3>
+                    <form class="space-y-6" action="#">
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preset Name</label>
+                            <input name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="20 or fewer characters is recommended" max="10">
+                        </div>
+                        <div class="flex flex-row gap-2">
+                            <button type="submit" id="save-centers" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Start</button>
+                            <button type="submit" id="cancel-centers" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="centers-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="create-custom-timer-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="create-custom-timer-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-plus"></i> Create Custom Timer</h3>
+                    <form class="space-y-3" action="#">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration</label>
+                        <input type="number" id="transition-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input a number in seconds">
+                        
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Clock</label>
+                        <div class="flex flex-row items-center gap-1 justify-items-start">
+                            <input type="color" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="clock-color" value="#2563eb" title="Choose your color">
+                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="clock-shape"></div>
+                        </div>
+                        
+
+
+
+                        <div class="flex flex-row gap-2">
+                            <button type="submit" id="save-create-custom-timer" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            <button type="submit" id="cancel-create-custom-timer" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="create-custom-timer-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tailwind Stuff
+        These are needed to ensure Tailwind classes that are added in JS get compiled properly.
+    -->
+    <label for="diagonal-down-right" id="label-diagonal-down-right" class="hidden">
+        <input type="checkbox" name="word-direction" class="hidden peer" id="diagonal-down-right" value="diagonal-down-right"/>
+        <div class="px-4 py-2 text-sm font-bold text-gray-900 bg-white border-t border-b border-gray-200 peer-checked:bg-blue-600 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+            <i class="rotate-45 fa-solid fa-arrow-right"></i>
+        </div>
+    </label>
 </body>
 <script src="js/app.js"></script>
+<script src="js/modals.js"></script>
+<script src="js/tippys.js"></script>
+<script src="js/toasts.js"></script>
+<script src="js/settings.js"></script>
 <script>
     setInterval(setTime, 1000)
     setDate()
     setTime()
+    setupSettings()
+    populateShapePickers()
+    setColorPickers()
+    populateCustomTimers()
 </script>
 </html>

@@ -8,8 +8,6 @@ html {
 }
 body {
     font-family: "quicksand", sans-serif;
-    height: 100lvh;
-    width: 100lvh;
 }
 @media (min-width: 768px) { /* Adjust breakpoint as needed */
     html {
