@@ -36,9 +36,24 @@ function populateCustomTimers(){
         const element = customTimers[index]
         const name = element.name
         const button = document.createElement('button')
-        button.classList.add('p-2','rounded-md','bg-slate-400','dark:bg-slate-500','h-fit')   
+        button.classList.add('p-2','rounded-md','bg-slate-400','dark:bg-slate-500','h-fit', 'dark:hover:bg-slate-700')   
         button.innerText = name
         button.id = `${name}-custom-timer`   
         customTimersDiv.appendChild(button)  
     }
+}
+
+function addListenerToTimers(){
+    const timers = document.getElementsByName('timer-button')
+    for (let index = 0; index < timers.length; index++) {
+        const element = timers[index];
+        element.addEventListener('click', function(){
+            const duration = parseInt(this.id) * 1000
+
+        })
+    }
+}
+
+function timer(){
+    
 }
