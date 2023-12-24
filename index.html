@@ -17,6 +17,7 @@
 <body id="body" class="flex flex-row w-screen h-screen transition-colors duration-1000 ease-in-out bg-slate-200 dark:bg-slate-600">
     <div id="date" class="fixed top-0 left-0 p-5 text-4xl"></div>
     <div class="fixed top-0 right-0 flex flex-row gap-1 mt-2 mr-2">
+        <button id="custom-timer-settings" data-modal-target="custom-timer-settings-modal" data-modal-toggle="custom-timer-settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gears"></i></button>
         <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" class="p-2 px-3 rounded-md light-button bg-slate-400 h-fit dark:hover:bg-slate-700"><i class="fa-solid fa-plus"></i></button>
         <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
         <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
@@ -118,7 +119,7 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-gear"></i> Settings</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="mr-1 fa-solid fa-gear"></i> Settings</h3>
                     <form id="settings-form" class="space-y-3" action="#">
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration</label>
                         <input type="number" id="transition-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input a number in seconds">
@@ -146,9 +147,6 @@
                             <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="centers-color" value="#2563eb" title="Choose your color">
                             <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="centers-shape"></div>
                         </div>
-                        
-
-
 
                         <div class="flex flex-row gap-2">
                             <button type="submit" id="save-settings" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="settings-modal">Save</button>
@@ -219,7 +217,46 @@
             </div>
         </div>
     </div>
+    <div id="custom-timer-settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="custom-timer-settings-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="mr-2 fa-solid fa-gears"></i>Custom Timers Settings</h3>
+                    <form id="custom-timer-settings-form" class="space-y-3" action="#">
+                        <div id="timer-settings-edits" class="flex flex-col gap-3">
+                            <div class="p-2 bg-gray-200 rounded-lg dark:bg-gray-500">
+                                <div class="text-lg font-bold">Hot Seat</div>
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                <input type="text" id="new-custom-timer-name" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the name">
+    
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white">Duration (s)</label>
+                                <input type="number" id="new-custom-timer-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the duration in seconds">
+    
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white">Color & Shape</label>
+                                <div class="flex flex-row items-center gap-1 justify-items-start">
+                                    <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="new-custom-timer-color" value="#2563eb" title="Choose your color">
+                                    <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="new-custom-timer-shape"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
 
+                        <div class="flex flex-row gap-2">
+                            <button type="submit" id="save-custom-timer-settings" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="custom-timer-settings-modal">Save</button>
+                            <button type="submit" id="cancel-custom-timer-settings" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="custom-timer-settings-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Tailwind Stuff
         These are needed to ensure Tailwind classes that are added in JS get compiled properly.
@@ -250,6 +287,7 @@
     populateShapePickers()
     setColorPickers()
     populateCustomTimers()
+    buildCustomTimerSettings()
 
     const settings = JSON.parse(localStorage.getItem('class-timers-settings'))
     const data = settings.defaults.clock

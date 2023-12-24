@@ -37,8 +37,11 @@ const CUSTOM_TIMERS = [
         shape: 'cloud',
     }
 ]
-// #25618d
-// #8d5925
+
+
+
+
+// General Settings
 function setupSettings(){
     let settings = JSON.parse(localStorage.getItem('class-timers-settings'))
     if (!settings) {
@@ -76,6 +79,7 @@ function populateShapePickers(){
     
             input.type = 'radio'
             input.name = `shape-radio-${elementId}`
+            input.value = shape
             input.classList.add('hidden', 'peer')
             input.id = `input-${id}`
 
@@ -106,10 +110,105 @@ function setColorPickers(){
 
 
 
+// Custom Timers Settings
+function buildCustomTimerSettings(){
+    const settingsData = JSON.parse(localStorage.getItem('class-timers-settings'))
+    const customTimers = settingsData.custom_timers
+    const customTimerSettingsForm = document.getElementById('timer-settings-edits')
+    customTimerSettingsForm.innerHTML = ''
+    for (let index = 0; index < customTimers.length; index++) {
+        const element = customTimers[index]
+        const name = element.name
+        const duration = parseInt(element.duration)
+        const color = element.color
+        const savedShape = element.shape
+
+        const div = document.createElement('div')
+        
+        div.innerHTML = `
+        <div class="p-2 bg-gray-200 rounded-lg dark:bg-gray-500" id="${name}-settings">
+            <div class="text-lg font-bold">${name}</div>
+            <label class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+            <input type="text" id="custom-timer-settings-name-${name}" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the name" value="${name}">
+
+            <label class="block text-sm font-medium text-gray-900 dark:text-white">Duration (s)</label>
+            <input type="number" id="custom-timer-settings-duration-${name}" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the duration in seconds" value="${duration / 1000}">
+
+            <label class="block text-sm font-medium text-gray-900 dark:text-white">Color & Shape</label>
+            <div class="flex flex-row items-center gap-1 justify-items-start">
+                <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="custom-timer-settings-color-${name}" value="${color}" title="Choose your color">
+                <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="custom-timer-settings-shape-${name}"></div>
+            </div>
+        </div>`
+
+        customTimerSettingsForm.appendChild(div)
+
+        const shapesGroup = document.getElementById(`custom-timer-settings-shape-${name}`)
+
+        for (let idx = 0; idx < SHAPES.length; idx++) {
+            const shape = SHAPES[idx];
+            const label = document.createElement('label')
+            const input = document.createElement('input')
+            const div = document.createElement('div')
+    
+            const id = `${shape}-${index}`
+    
+            label.for = id
+            label.id = `label-${id}`
+    
+            input.type = 'radio'
+            input.name = `shape-radio-settings-${name}`
+            input.value = shape
+            input.classList.add('hidden', 'peer')
+            input.id = `input-${id}`
+
+            
+            div.classList.add('px-4', 'py-2', 'text-sm', 'font-bold', 'text-gray-900', 'bg-white', 'border-t', 'border-b', 'border-gray-200', 'peer-checked:bg-blue-600', 'hover:bg-gray-100', 'hover:text-blue-700', 'focus:z-10', 'focus:ring-2', 'focus:ring-blue-700', 'focus:text-blue-700', 'dark:bg-gray-700', 'dark:border-gray-600', 'dark:text-white', 'dark:hover:text-white', 'dark:hover:bg-gray-600', 'dark:focus:ring-blue-500', 'dark:focus:text-white')
+            div.innerHTML = `<i class="fa-solid fa-${shape}"></i>`
+            
+            if (shape == savedShape || savedShape ==  null && shape == 'xmark') input.checked = true
+
+            label.appendChild(input)
+            label.appendChild(div)
+    
+            shapesGroup.appendChild(label)
+        }
+
+    }
+}
+const saveCustomTimerSettings = document.getElementById('save-custom-timer-settings')
+saveCustomTimerSettings.addEventListener('click', function(){
+    const settingsData = JSON.parse(localStorage.getItem('class-timers-settings'))
+    const customTimers = settingsData.custom_timers
+   
+    let timersNew = []
+
+    for (let index = 0; index < customTimers.length; index++) {
+        const data = customTimers[index];
+        const name = data.name
+
+        const nameNew = document.getElementById(`custom-timer-settings-name-${name}`).value
+        const durationNew = parseInt(document.getElementById(`custom-timer-settings-duration-${name}`).value) * 1000
+        const colorNew = document.getElementById(`custom-timer-settings-color-${name}`).value
+        const shapeNew = getSelectedValueFromRadioGroup(`shape-radio-settings-${name}`)
+
+        timersNew.push({
+            name: nameNew,
+            duration: durationNew,
+            color: colorNew,
+            shape: shapeNew,
+            transition: false,
+            audio: null
+        })
+    }
+    settingsData.custom_timers = timersNew
+    localStorage.setItem('class-timers-settings', JSON.stringify(settingsData))
+})
+
+
+
 // Listeners
-
 const colorPickers = document.getElementsByName('color-picker')
-
 const saveSettings = document.getElementById('save-settings')
 saveSettings.addEventListener('click', function(e){
     e.preventDefault()
