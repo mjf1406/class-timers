@@ -30,7 +30,22 @@ body {
     font-size: 0.5rem; /* 8px */
     line-height: 0.6rem; /* 10px */
 }
-
+.text-10xl {
+    font-size: 10rem; /* 160px */
+    line-height: 1; /* 16px */
+}
+.text-11xl {
+    font-size: 12rem; /* 192px */
+    line-height: 1; /* 16px */
+}
+.text-12xl {
+    font-size: 14rem; /* 224px */
+    line-height: 1; /* 16px */
+}
+.text-13xl {
+    font-size: 16rem; /* 256px */
+    line-height: 1; /* 16px */
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -6,38 +6,86 @@
     <script src="https://kit.fontawesome.com/7e282d14cd.js" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
     <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"> <!-- Toastify.js -->
     <title>Class Timers</title>
     <!-- Modules -->
     <script src="https://unpkg.com/@popperjs/core@2"></script> <!-- Tippy.js -->
     <script src="https://unpkg.com/tippy.js@6"></script> <!-- Tippy.js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> <!-- Toastify.js -->
+    <script src="https://colorjs.io/dist/color.global.js"></script> <!-- Color.js -->
 </head>
-<body id="body" class="flex flex-row w-screen h-screen bg-slate-200 dark:bg-slate-600">
+<body id="body" class="flex flex-row w-screen h-screen transition-colors duration-1000 ease-in-out bg-slate-200 dark:bg-slate-600">
     <div id="date" class="fixed top-0 left-0 p-5 text-4xl"></div>
     <div class="fixed top-0 right-0 flex flex-row gap-1 mt-2 mr-2">
-        <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" name="timer-button" class="p-2 px-3 rounded-md bg-slate-400 h-fit dark:hover:bg-slate-700"><i class="fa-solid fa-plus"></i></button>
-        <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
-        <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
+        <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" class="p-2 px-3 rounded-md light-button bg-slate-400 h-fit dark:hover:bg-slate-700"><i class="fa-solid fa-plus"></i></button>
+        <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
+        <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
     </div>
     <div class="flex flex-col self-center justify-center w-screen gap-2 align-middle">
-        <div id="time" class="self-center font-bold text-9xl"></div>
+        <div id="timer-end" class="self-center hidden text-xl opacity-50"></div>
+        <div id="time" class="self-center font-bold text-12xl"></div>
         <div id="timer-buttons" class="flex flex-row self-center gap-2">
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="30">30s</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="60">1m</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="300">5m</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="600">10m</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="900">15m</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1200">20m</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1500">25m</button>
-            <button name="timer-button" class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1800">30m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="10">10s</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="30">30s</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="60">1m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="300">5m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="600">10m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="900">15m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1200">20m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1500">25m</button>
+            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1800">30m</button>
         </div>
         <div id="custom-timers" class="flex flex-row self-center gap-2">
-            <button class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Quick Game</button>
-            <button class="p-2 rounded-md bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Hot Seat</button>
-            
+            <button name="custom-timer" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Quick Game</button>
+            <button name="custom-timer" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Hot Seat</button>
+        </div>
+        <div id="timer-adjustment-buttons" class="flex flex-col self-center hidden gap-2">
+            <div id="timer-adjustment-buttons-plus" class="flex flex-row self-center gap-2">
+                <button id="plus-1" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-plus"></i> 1s
+                </button>
+                <button id="plus-10" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-plus"></i> 10s
+                </button>
+                <button id="plus-30" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-plus"></i> 30s
+                </button>
+                <button id="plus-60" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-plus"></i> 1m
+                </button>
+                <button id="plus-300" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-plus"></i> 5m
+                </button>
+                <button id="plus-600" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-plus"></i> 10m
+                </button>
+            </div>
+            <div id="timer-adjustment-buttons-minus" class="flex flex-row self-center gap-2">
+                <button id="minus-1" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-minus"></i> 1s
+                </button>
+                <button id="minus-10" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-minus"></i> 10s
+                </button>
+                <button id="minus-30" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-minus"></i> 30s
+                </button>
+                <button id="minus-60" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-minus"></i> 1m
+                </button>
+                <button id="minus-300" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-minus"></i> 5m
+                </button>
+                <button id="minus-600" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-minus"></i> 10m
+                </button>
+            </div>
+            <div class="flex flex-row self-center gap-2">
+                <button id="cancel-timer" name="modify-timer-button" class="p-2 text-xs rounded-md bg-slate-400 dark:bg-red-500 h-fit dark:hover:bg-red-700">&nbsp;<i class="fa-solid fa-ban"></i>&nbsp;Cancel</button>
+            </div>
         </div>
     </div>
-    <div id="footer" class="fixed bottom-0 left-0 flex flex-row justify-center w-full gap-1 mb-1 text-xs align-middle opacity-40">
+    <div id="footer" class="fixed bottom-0 left-0 flex flex-row justify-center w-full gap-1 mb-1 text-xs align-middle z-1 opacity-40">
         Made with <i class="ml-1 mr-1 text-red-500 fa fa-heart" aria-hidden="true"></i> by Michael Fitzgerald. 
         <div class="flex flex-row gap-1 ml-1" role="group" aria-label="">
             <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="LinkedIn"> 
@@ -55,15 +103,11 @@
         </div>
     </div>
     
-
-
-
-
-    
+   
     
     <!-- MODALS -->
     
-    <div id="settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -75,7 +119,7 @@
                 </button>
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-gear"></i> Settings</h3>
-                    <form class="space-y-3" action="#">
+                    <form id="settings-form" class="space-y-3" action="#">
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration</label>
                         <input type="number" id="transition-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input a number in seconds">
                         
@@ -84,12 +128,30 @@
                             <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="clock-color" value="#2563eb" title="Choose your color">
                             <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="clock-shape"></div>
                         </div>
+
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Timer</label>
+                        <div class="flex flex-row items-center gap-1 justify-items-start">
+                            <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="timer-color" value="#2563eb" title="Choose your color">
+                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="timer-shape"></div>
+                        </div>
+
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition</label>
+                        <div class="flex flex-row items-center gap-1 justify-items-start">
+                            <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="transition-color" value="#2563eb" title="Choose your color">
+                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="transition-shape"></div>
+                        </div>
+
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Centers</label>
+                        <div class="flex flex-row items-center gap-1 justify-items-start">
+                            <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="centers-color" value="#2563eb" title="Choose your color">
+                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="centers-shape"></div>
+                        </div>
                         
 
 
 
                         <div class="flex flex-row gap-2">
-                            <button type="submit" id="save-settings" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            <button type="submit" id="save-settings" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="settings-modal">Save</button>
                             <button type="submit" id="cancel-settings" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="settings-modal">Cancel</button>
                         </div>
                     </form>
@@ -97,7 +159,7 @@
             </div>
         </div>
     </div>
-    <div id="centers-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="centers-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -123,7 +185,7 @@
             </div>
         </div>
     </div>
-    <div id="create-custom-timer-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="create-custom-timer-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -136,17 +198,17 @@
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-plus"></i> Create Custom Timer</h3>
                     <form class="space-y-3" action="#">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration</label>
-                        <input type="number" id="transition-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input a number in seconds">
-                        
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Clock</label>
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input type="text" id="new-custom-timer-name" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the name">
+
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Duration (s)</label>
+                        <input type="number" id="new-custom-timer-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the duration in seconds">
+
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Color & Shape</label>
                         <div class="flex flex-row items-center gap-1 justify-items-start">
-                            <input type="color" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="clock-color" value="#2563eb" title="Choose your color">
-                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="clock-shape"></div>
+                            <input type="color" name="color-picker" class="block h-10 p-1 rounded-lg cursor-pointer w-14 disabled:opacity-50 disabled:pointer-events-none" id="new-custom-timer-color" value="#2563eb" title="Choose your color">
+                            <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group" id="new-custom-timer-shape"></div>
                         </div>
-                        
-
-
 
                         <div class="flex flex-row gap-2">
                             <button type="submit" id="save-create-custom-timer" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
@@ -169,18 +231,32 @@
         </div>
     </label>
 </body>
+
 <script src="js/app.js"></script>
 <script src="js/modals.js"></script>
 <script src="js/tippys.js"></script>
 <script src="js/toasts.js"></script>
 <script src="js/settings.js"></script>
+<script src="js/listeners.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/colors.js"></script>
+<script src="js/customTimers.js"></script>
+
 <script>
-    setInterval(setTime, 1000)
-    setDate()
     setTime()
+    clockInterval = setInterval(setTime, 1000)
+    setDate()
     setupSettings()
     populateShapePickers()
     setColorPickers()
     populateCustomTimers()
+
+    const settings = JSON.parse(localStorage.getItem('class-timers-settings'))
+    const data = settings.defaults.clock
+    let color = data.color
+    const shape = data.shape
+    body.style.backgroundColor = color
+    let buttonColor = new Color(color)
+    setColors(buttonColor)
 </script>
 </html>

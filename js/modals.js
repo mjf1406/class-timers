@@ -68,7 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Hide Modal
     const hideButtons = document.querySelectorAll("[data-modal-hide]");
     hideButtons.forEach((btn) => {
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault()
             const modalId = this.getAttribute("data-modal-hide");
             const modal = document.getElementById(modalId);
             modal.classList.add("hidden");
