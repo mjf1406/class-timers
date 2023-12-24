@@ -6,6 +6,8 @@ A website that is meant to be displayed on a large monitor for students to see h
     - [ ] shapes now properly move around the background of all timers
     - [ ] need to track the state of the application, like is clock, timer, etc. being dispalyed so we can properly update colors and things if changes are made
     - [ ] centers button now functions; it creates a centers timer
+    - [ ] added transition to custom timer
+    - [ ] added centers quantity to custom timers; this means custom timers now can act as centers
 - 2023/12/24
     - default timer buttons now function
     - cancel timer button now functions when a timer is active
