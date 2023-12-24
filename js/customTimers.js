@@ -22,8 +22,10 @@ function populateCustomTimers(){
             const shape = data.shape
             const color = new Color(data.color)
             setTimer(duration, color, shape)
-            setEndTime(duration)
             setColors(color, shape)
+            const displayTimerName = document.getElementById('timer-end')
+            displayTimerName.innerHTML = data.name
+            displayTimerName.classList.toggle('hidden')
         })
     }
 }

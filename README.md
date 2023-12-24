@@ -9,6 +9,7 @@ A website that is meant to be displayed on a large monitor for students to see h
     - [ ] added transition to custom timer
     - [ ] added centers quantity to custom timers; this means custom timers now can act as centers
 - 2023/12/24
+    - changed end time to custom timer name when custom timer is activated
     - added custom timers settings so they can be edited
     - default timer buttons now function
     - cancel timer button now functions when a timer is active
