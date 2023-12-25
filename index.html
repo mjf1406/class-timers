@@ -14,106 +14,108 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> <!-- Toastify.js -->
     <script src="https://colorjs.io/dist/color.global.js"></script> <!-- Color.js -->
 </head>
-<body id="body" class="flex flex-row w-screen h-screen transition-colors duration-1000 ease-in-out bg-slate-200 dark:bg-slate-600">
-    <div id="date" class="fixed top-0 left-0 p-5 text-4xl"></div>
-    <div class="fixed top-0 right-0 flex flex-row gap-1 mt-2 mr-2">
-        <button id="custom-timer-settings" data-modal-target="custom-timer-settings-modal" data-modal-toggle="custom-timer-settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gears"></i></button>
-        <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" class="p-2 px-3 rounded-md light-button bg-slate-400 h-fit dark:hover:bg-slate-700"><i class="fa-solid fa-plus"></i></button>
-        <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
-        <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
-        <button id="info" data-modal-target="info-modal" data-modal-toggle="info-modal" class="p-2 px-4 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-info"></i></button>
-    </div>
-    <div class="flex flex-col self-center justify-center w-screen gap-2 align-middle">
-        <div id="timer-end" class="self-center hidden text-xl opacity-50"></div>
-        <div id="time" class="self-center font-bold text-12xl"></div>
-        <div id="timer-buttons" class="flex flex-row self-center gap-2">
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="10">10s</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="30">30s</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="60">1m</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="300">5m</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="600">10m</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="900">15m</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1200">20m</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1500">25m</button>
-            <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1800">30m</button>
+<body id="body" class="flex flex-row w-screen h-screen transition-colors duration-1000 ease-in-out">
+    <div id="content" class="z-20 flex flex-row w-screen h-screen transition-colors duration-1000 ease-in-out">
+        <div id="date" class="fixed top-0 left-0 p-5 text-4xl"></div>
+        <div class="fixed top-0 right-0 flex flex-row gap-1 mt-2 mr-2">
+            <button id="custom-timer-settings" data-modal-target="custom-timer-settings-modal" data-modal-toggle="custom-timer-settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gears"></i></button>
+            <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" class="p-2 px-3 rounded-md light-button bg-slate-400 h-fit dark:hover:bg-slate-700"><i class="fa-solid fa-plus"></i></button>
+            <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
+            <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
+            <button id="info" data-modal-target="info-modal" data-modal-toggle="info-modal" class="p-2 px-4 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-info"></i></button>
         </div>
-        <div id="custom-timers" class="flex flex-row self-center gap-2">
-            <button name="custom-timer" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Quick Game</button>
-            <button name="custom-timer" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Hot Seat</button>
+        <div class="flex flex-col self-center justify-center w-screen gap-2 align-middle">
+            <div id="timer-end" class="self-center hidden text-xl opacity-50"></div>
+            <div id="time" class="self-center font-bold text-12xl"></div>
+            <div id="timer-buttons" class="flex flex-row self-center gap-2">
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="10">10s</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="30">30s</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="60">1m</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="300">5m</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="600">10m</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="900">15m</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1200">20m</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1500">25m</button>
+                <button name="timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700" id="1800">30m</button>
+            </div>
+            <div id="custom-timers" class="flex flex-row self-center gap-2">
+                <button name="custom-timer" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Quick Game</button>
+                <button name="custom-timer" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">Hot Seat</button>
+            </div>
+            <div id="timer-adjustment-buttons" class="flex flex-col self-center hidden gap-2">
+                <div id="timer-adjustment-buttons-plus" class="flex flex-row self-center gap-2">
+                    <button id="plus-1" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-plus"></i> 1s
+                    </button>
+                    <button id="plus-10" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-plus"></i> 10s
+                    </button>
+                    <button id="plus-30" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-plus"></i> 30s
+                    </button>
+                    <button id="plus-60" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-plus"></i> 1m
+                    </button>
+                    <button id="plus-300" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-plus"></i> 5m
+                    </button>
+                    <button id="plus-600" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-plus"></i> 10m
+                    </button>
+                </div>
+                <div id="timer-adjustment-buttons-minus" class="flex flex-row self-center gap-2">
+                    <button id="minus-1" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-minus"></i> 1s
+                    </button>
+                    <button id="minus-10" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-minus"></i> 10s
+                    </button>
+                    <button id="minus-30" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-minus"></i> 30s
+                    </button>
+                    <button id="minus-60" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-minus"></i> 1m
+                    </button>
+                    <button id="minus-300" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-minus"></i> 5m
+                    </button>
+                    <button id="minus-600" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-minus"></i> 10m
+                    </button>
+                </div>
+                <div class="flex flex-row self-center gap-2">
+                    <button id="cancel-timer" name="modify-timer-button" class="p-2 text-xs rounded-md bg-slate-400 dark:bg-red-500 h-fit dark:hover:bg-red-700">&nbsp;<i class="fa-solid fa-ban"></i>&nbsp;Cancel</button>
+                </div>
+            </div>
         </div>
-        <div id="timer-adjustment-buttons" class="flex flex-col self-center hidden gap-2">
-            <div id="timer-adjustment-buttons-plus" class="flex flex-row self-center gap-2">
-                <button id="plus-1" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-plus"></i> 1s
+        <div id="footer" class="fixed bottom-0 left-0 flex flex-row justify-center w-full gap-1 mb-1 text-xs align-middle z-1 opacity-40">
+            Made with <i class="ml-1 mr-1 text-red-500 fa fa-heart" aria-hidden="true"></i> by Michael Fitzgerald. 
+            <div class="flex flex-row gap-1 ml-1" role="group" aria-label="">
+                <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="LinkedIn"> 
+                    <a href="https://www.linkedin.com/in/mfitz06/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-linkedin"></i></a>
                 </button>
-                <button id="plus-10" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-plus"></i> 10s
+                <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Github"> 
+                    <a href="https://github.com/mjf1406" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-github"></i></a>
                 </button>
-                <button id="plus-30" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-plus"></i> 30s
+                <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Portfolio"> 
+                    <a href="https://mjf1406.github.io/portfolio/index.html" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-id-card"></i></a>
                 </button>
-                <button id="plus-60" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-plus"></i> 1m
+                <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
+                    <a href="https://github.com/mjf1406/class-timers" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-code"></i></a>
                 </button>
-                <button id="plus-300" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-plus"></i> 5m
+                <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
+                    <a href="https://patreon.com/MichaelFitzgerald?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-patreon"></i></a>
                 </button>
-                <button id="plus-600" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-plus"></i> 10m
+                <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
+                    <a href="https://ko-fi.com/michaelfitzgerald1406" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-mug-hot"></i></a>
                 </button>
             </div>
-            <div id="timer-adjustment-buttons-minus" class="flex flex-row self-center gap-2">
-                <button id="minus-1" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-minus"></i> 1s
-                </button>
-                <button id="minus-10" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-minus"></i> 10s
-                </button>
-                <button id="minus-30" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-minus"></i> 30s
-                </button>
-                <button id="minus-60" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-minus"></i> 1m
-                </button>
-                <button id="minus-300" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-minus"></i> 5m
-                </button>
-                <button id="minus-600" name="modify-timer-button" class="p-2 rounded-md dark-button bg-slate-400 dark:bg-slate-500 h-fit dark:hover:bg-slate-700">
-                    <i class="fa-solid fa-minus"></i> 10m
-                </button>
-            </div>
-            <div class="flex flex-row self-center gap-2">
-                <button id="cancel-timer" name="modify-timer-button" class="p-2 text-xs rounded-md bg-slate-400 dark:bg-red-500 h-fit dark:hover:bg-red-700">&nbsp;<i class="fa-solid fa-ban"></i>&nbsp;Cancel</button>
-            </div>
-        </div>
-    </div>
-    <div id="footer" class="fixed bottom-0 left-0 flex flex-row justify-center w-full gap-1 mb-1 text-xs align-middle z-1 opacity-40">
-        Made with <i class="ml-1 mr-1 text-red-500 fa fa-heart" aria-hidden="true"></i> by Michael Fitzgerald. 
-        <div class="flex flex-row gap-1 ml-1" role="group" aria-label="">
-            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="LinkedIn"> 
-                <a href="https://www.linkedin.com/in/mfitz06/" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-linkedin"></i></a>
-            </button>
-            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Github"> 
-                <a href="https://github.com/mjf1406" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-github"></i></a>
-            </button>
-            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Portfolio"> 
-                <a href="https://mjf1406.github.io/portfolio/index.html" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-solid fa-id-card"></i></a>
-            </button>
-            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
-                <a href="https://github.com/mjf1406/class-timers" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-solid fa-code"></i></a>
-            </button>
-            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
-                <a href="https://patreon.com/MichaelFitzgerald?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-patreon"></i></a>
-            </button>
-            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
-                <a href="https://ko-fi.com/michaelfitzgerald1406" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-solid fa-mug-hot"></i></a>
-            </button>
         </div>
     </div>
     
@@ -121,7 +123,7 @@
     
     <!-- MODALS -->
     
-    <div name="modal" id="settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div name="modal" id="settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-30 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -182,7 +184,7 @@
             </div>
         </div>
     </div>
-    <div name="modal" id="centers-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div name="modal" id="centers-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-30 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -258,7 +260,7 @@
             </div>
         </div>
     </div>
-    <div name="modal" id="create-custom-timer-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div name="modal" id="create-custom-timer-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-30 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -304,7 +306,7 @@
             </div>
         </div>
     </div>
-    <div name="modal" id="custom-timer-settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div name="modal" id="custom-timer-settings-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-30 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -348,7 +350,7 @@
             </div>
         </div>
     </div>
-    <div name="modal" id="info-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div name="modal" id="info-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-30 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -395,6 +397,8 @@
         </div>
     </div>
 
+    <div id="animated-icons" class="z-1"></div>
+
     <!-- Tailwind Stuff
         These are needed to ensure Tailwind classes that are added in JS get compiled properly.
     -->
@@ -404,6 +408,21 @@
             <i class="rotate-45 fa-solid fa-arrow-right"></i>
         </div>
     </label>
+    <div name="These are all the different font sizes">
+        <div class="text-xs"></div>
+        <div class="text-sm"></div>
+        <div class="text-base"></div>
+        <div class="text-lg"></div>
+        <div class="text-xl"></div>
+        <div class="text-2xl"></div>
+        <div class="text-3xl"></div>
+        <div class="text-4xl"></div>
+        <div class="text-5xl"></div>
+        <div class="text-6xl"></div>
+        <div class="text-7xl"></div>
+        <div class="text-8xl"></div>
+        <div class="text-9xl"></div>
+    </div>
 </body>
 
 <script src="js/app.js"></script>
@@ -417,6 +436,7 @@
 <script src="js/customTimers.js"></script>
 <script src="js/numberInputs.js"></script>
 <script src="js/rotations.js"></script>
+<script src="js/animateShapes.js"></script>
 
 <script>
     setTime()

@@ -3,7 +3,7 @@ const SHAPES = ['xmark','circle','cloud','clover','diamond','heart','square','st
 const DEFAULTS = {
     clock: {
         color: '#BA4949',
-        shape:  'xmark',
+        shape:  null,
         simul_audio: null,
         end_audio: null
     },

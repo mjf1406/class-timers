@@ -27,3 +27,8 @@ function getSelectedValueFromRadioGroup(radioGroupName) {
         console.error("🚀 ~ file: global.js:547 ~ getSelectedValueFromRadioGroup ~ error:", error)
     }
 }
+Array.prototype.random = function() {
+    if (this.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * this.length);
+    return this[randomIndex];
+};

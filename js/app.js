@@ -30,6 +30,9 @@ function setDate(){
 }
 function cancelTimer(color, shape){
     clearInterval(timerInterval)
+    const endTimeDiv = document.getElementById('timer-end')
+    endTimeDiv.classList.toggle('hidden')
+
     // Reveal timer adjustment buttons
     const adjustmentButtons = document.getElementById('timer-adjustment-buttons')
     adjustmentButtons.classList.add('hidden')
@@ -46,8 +49,12 @@ function cancelTimer(color, shape){
     const classes = getClassesThatInclude('bg', 'body')
     removeClassesFromElement(classes, 'body')
     body.style.backgroundColor = color
+
     color = new Color(color)
+
     setColors(color)
+    populateShapes(shape)
+    animateIcons()
 }
 function setTimer(durationMilliseconds, color, shape){
     const divTimer = document.getElementById('time')
@@ -80,6 +87,8 @@ function setTimer(durationMilliseconds, color, shape){
         color = new Color(color)
         setColors(color)
     }
+    populateShapes(shape)
+    animateIcons()
 }
 async function timer(transition) {
     const transitionTrack = new Audio('../data/audio/30s-jeopardy-song.mp3')

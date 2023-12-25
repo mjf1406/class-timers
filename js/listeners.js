@@ -35,6 +35,5 @@ cancelTimerButton.addEventListener('click', function(){
     const color = data.color
     const shape = data.shape
     cancelTimer(color, shape)
-    setEndTime(1000)
 })
 
