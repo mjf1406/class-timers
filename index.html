@@ -21,6 +21,7 @@
         <button id="add-custom-timer" data-modal-target="create-custom-timer-modal" data-modal-toggle="create-custom-timer-modal" class="p-2 px-3 rounded-md light-button bg-slate-400 h-fit dark:hover:bg-slate-700"><i class="fa-solid fa-plus"></i></button>
         <button id="centers" data-modal-target="centers-modal" data-modal-toggle="centers-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-repeat"></i></button>
         <button id="settings" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="p-2 px-3 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-gear"></i></button>
+        <button id="info" data-modal-target="info-modal" data-modal-toggle="info-modal" class="p-2 px-4 rounded-md light-button dark:hover:bg-slate-700 bg-slate-400 h-fit" type="button"><i class="fa-solid fa-info"></i></button>
     </div>
     <div class="flex flex-col self-center justify-center w-screen gap-2 align-middle">
         <div id="timer-end" class="self-center hidden text-xl opacity-50"></div>
@@ -90,16 +91,28 @@
         Made with <i class="ml-1 mr-1 text-red-500 fa fa-heart" aria-hidden="true"></i> by Michael Fitzgerald. 
         <div class="flex flex-row gap-1 ml-1" role="group" aria-label="">
             <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="LinkedIn"> 
-                <a href="https://www.linkedin.com/in/mfitz06/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/mfitz06/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-linkedin"></i></a>
             </button>
             <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Github"> 
-                <a href="https://github.com/mjf1406" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+                <a href="https://github.com/mjf1406" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i></a>
             </button>
             <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Portfolio"> 
-                <a href="https://mjf1406.github.io/portfolio/index.html" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-id-card"></i></a>
+                <a href="https://mjf1406.github.io/portfolio/index.html" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-id-card"></i></a>
             </button>
             <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
-                <a href="https://github.com/mjf1406/class-timers" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-code"></i></a>
+                <a href="https://github.com/mjf1406/class-timers" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-code"></i></a>
+            </button>
+            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
+                <a href="https://patreon.com/MichaelFitzgerald?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-patreon"></i></a>
+            </button>
+            <button type="button" class="bg-transparent" data-toggle="tooltip" data-placement="top" title="Open Source Code"> 
+                <a href="https://ko-fi.com/michaelfitzgerald1406" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-mug-hot"></i></a>
             </button>
         </div>
     </div>
@@ -323,6 +336,39 @@
                         <div class="flex flex-row gap-2">
                             <button type="submit" id="save-custom-timer-settings" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="custom-timer-settings-modal">Save</button>
                             <button type="submit" id="cancel-custom-timer-settings" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="custom-timer-settings-modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div name="modal" id="info-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-lg max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="info-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                        <i class="mr-4 fa-solid fa-info"></i> 
+                        Hi, there!
+                    </h3>
+                    <form class="space-y-3" action="#">
+                        <div>My name is Michael Fitzgerald and I am a US-born elementary school teacher based in South Korea. I make webapps that I want to use in my classroom. If you have gained any benefit from this app, please consider donating to me via any of the below methods.</div>
+
+                        <div class="flex flex-row gap-2">
+                            <a type="button" class="text-gray-900 bg-[#47c4ff] hover:bg-gray-100 font-bold focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-xl lg:text-xl px-2 lg:px-6 py-1 lg:py-4 text-center inline-flex items-center dark:focus:ring-gray-600 dark:text-white dark:hover:bg-gray-500 mr-2 mb-2 text-sm" href="https://ko-fi.com/michaelfitzgerald1406" target="_blank" rel="noopener noreferrer">
+                                <i class="mr-2 fa-solid fa-mug-hot"></i>
+                                Support me on KoFi
+                            </a>
+                            <a type="button" class="text-gray-900 bg-[#f76859] hover:bg-gray-100 font-bold focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-xl lg:text-xl px-2 lg:px-6 py-1 lg:py-4 text-center inline-flex items-center dark:focus:ring-gray-600 dark:text-white dark:hover:bg-gray-500 mr-2 mb-2 text-sm" href="https://patreon.com/MichaelFitzgerald?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link" target="_blank" rel="noopener noreferrer">
+                                <i class="mr-2 fa-brands fa-patreon"></i>
+                                Become a Patreon
+                            </a>
                         </div>
                     </form>
                 </div>
