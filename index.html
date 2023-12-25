@@ -241,6 +241,12 @@
                                 </button>
                             </div>
                         </div>
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                End Time
+                            </label>
+                            <div name="create-rotations-end-time">8:40:30 PM</div>
+                        </div>
 
 
                         <div class="flex flex-row gap-2">
@@ -343,7 +349,7 @@
         </div>
     </div>
     <div name="modal" id="info-modal" tabindex="-1" aria-hidden="true" class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-100 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-lg max-h-full">
+        <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="info-modal">
@@ -353,12 +359,25 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                        <i class="mr-4 fa-solid fa-info"></i> 
+                    <h3 class="flex flex-row items-center gap-2 mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                        <i class="fa-solid fa-info"></i>
                         Hi, there!
                     </h3>
                     <form class="space-y-3" action="#">
-                        <div>My name is Michael Fitzgerald and I am a US-born elementary school teacher based in South Korea. I make webapps that I want to use in my classroom. If you have gained any benefit from this app, please consider donating to me via any of the below methods.</div>
+                        <div class="grid items-center grid-cols-9 gap-5">
+                            <div class="col-span-4">
+                                <img src="data\img\profile-pic.jpg" class="rounded-full h-fit w-fit" alt="">
+                            </div>
+                            <div class="col-span-5">
+                                <p>
+                                    My name is Michael Fitzgerald, an elementary school teacher originally from the United States, currently residing and teaching in South Korea. In my pursuit of excellence in education, I have dedicated myself to creating web applications that address the specific needs of my classroom that I felt were not adequately met by existing resources.
+                                </p>
+                                <br>
+                                <p>
+                                    If these tools have been helpful to you, please consider supporting their development with a donation through any of the methods below. Your support is greatly appreciated and helps advance educational technology.
+                                </p>
+                            </div>
+                        </div>
 
                         <div class="flex flex-row gap-2">
                             <a type="button" class="text-gray-900 bg-[#47c4ff] hover:bg-gray-100 font-bold focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-xl lg:text-xl px-2 lg:px-6 py-1 lg:py-4 text-center inline-flex items-center dark:focus:ring-gray-600 dark:text-white dark:hover:bg-gray-500 mr-2 mb-2 text-sm" href="https://ko-fi.com/michaelfitzgerald1406" target="_blank" rel="noopener noreferrer">

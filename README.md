@@ -9,6 +9,7 @@ A website that is meant to be displayed on a large monitor for students to see h
     - [ ] added transition to custom timer
     - [ ] added centers quantity to custom timers; this means custom timers now can act as centers
     - [ ] can now delete custom timers in the custom timers settings
+    - [ ] [Creating Rotations] the end time when creating rotations now functions
 - 2023/12/25
     - modals now close when clicking outside
     - modals now close when pushing the escape key
