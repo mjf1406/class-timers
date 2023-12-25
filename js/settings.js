@@ -223,18 +223,25 @@ saveSettings.addEventListener('click', function(e){
     e.preventDefault()
     const settingsData = JSON.parse(localStorage.getItem('class-timers-settings'))
 
-    const transitionDuration = document.getElementById('transition-duration')
+    const transitionDuration = document.getElementById('settings-transition-duration')
     settings.defaults.transition.duration = transitionDuration.value
 
-    colorPickers.forEach(element => {
+
+    for (let index = 0; index < colorPickers.length; index++) {
+        const element = colorPickers[index];
         const type = element.id.replace('-color','')
-        console.log("🚀 ~ file: settings.js:120 ~ saveSettings.addEventListener ~ type:", type)
+        if (type.includes('custom-timer')) continue
         let color = element.value
+        let shape = getSelectedValueFromRadioGroup(`shape-radio-${type}`)
+        if (shape == 'xmark') shape = null
         settingsData.defaults[type].color = color
+        settingsData.defaults[type].shape = shape
         if (type == 'clock') {
             color = new Color(color)
             setColors(color)
+            populateShapes(shape)
+            animateIcons()
         }
-    })
+    }
     localStorage.setItem('class-timers-settings', JSON.stringify(settingsData))
 })

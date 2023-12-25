@@ -10,6 +10,8 @@ A website that is meant to be displayed on a large monitor for students to see h
     - [ ] can now delete custom timers in the custom timers settings
     - [ ] [Creating Rotations] the end time when creating rotations now functions
 - 2023/12/25
+    - fixed: shapes now populate on start up
+    - fixed: settings shape now properly saves
     - shapes now properly move around the background of all timers
     - modals now close when clicking outside
     - modals now close when pushing the escape key
