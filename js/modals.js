@@ -75,4 +75,20 @@ document.addEventListener("DOMContentLoaded", function () {
             modal.classList.add("hidden");
         });
     });
+    // Click outside the modal or hit escape key to close
+    const modals = document.querySelectorAll('div[name="modal"]')
+    modals.forEach(element => {
+        // Click outside the modal to close
+        window.addEventListener('click', function(event) {
+            if (event.target === element) {
+                element.classList.toggle('hidden');
+            }
+        });
+        // Close the modal with Escape key
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' || event.key === 'Esc') {
+                element.classList.add('hidden');
+            }
+        });
+    });
 });
