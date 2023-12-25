@@ -1,5 +1,6 @@
 var timerInterval
 var clockInterval
+var transitionInterval
 
 const SECOND = 1000
 const MINUTE = 60000
@@ -7,8 +8,6 @@ const TEN_SECONDS = 10000
 const TRANSITION_DURATION = 30000
 const TIMER_DONE_AUDIO = 10000
 const body = document.getElementById('body')
-
-const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function setTime(){
     let locale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
@@ -87,8 +86,10 @@ function setTimer(durationMilliseconds, color, shape){
         color = new Color(color)
         setColors(color)
     }
-    populateShapes(shape)
-    animateIcons()
+    if (shape != undefined) {
+        populateShapes(shape)
+        animateIcons()
+    }
 }
 async function timer(transition) {
     const transitionTrack = new Audio('../data/audio/30s-jeopardy-song.mp3')

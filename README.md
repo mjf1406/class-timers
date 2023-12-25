@@ -4,11 +4,14 @@ A website that is meant to be displayed on a large monitor for students to see h
 ## Change Log
 - 2023/12/xx
     - [ ] need to track the state of the application, like is clock, timer, etc. being displayed so we can properly update colors and things if changes are made
-    - [ ] centers button now functions; it creates a centers timer
     - [ ] added transition to custom timer
     - [ ] added centers quantity to custom timers; this means custom timers now can act as centers
     - [ ] can now delete custom timers in the custom timers settings
+    - [ ] font color across the site now changes based on the background color
+    - [ ] the pause button now functions: it pauses the timer and the animations
 - 2023/12/25
+    - timer adjustment buttons no longer remove animation
+    - centers button now functions; it creates a centers timer
     - [Creating Rotations] the end time is not calculated and displayed when creating rotations
     - fixed: shapes now populate on start up
     - fixed: settings shape now properly saves

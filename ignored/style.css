@@ -60,7 +60,7 @@ input[type=number] {
 
 #animated-icons i {
     position: absolute;
-    color: rgba(0, 0, 0, 0.1); /* Semi-transparent */
+    color: rgba(0, 0, 0, 0.15); /* Semi-transparent */
 }
 
 @keyframes changeSize {
