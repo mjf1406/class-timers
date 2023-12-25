@@ -40,6 +40,8 @@ saveCustomTimer.addEventListener('click', function(e){
     const shape = getSelectedValueFromRadioGroup('shape-radio-new-custom-timer')
     const transition = false
     const audio = null
+
+    if (name.value == "" || duration.value == "") return makeToast('Please input a name/duration!','warning')
     
     settingsData.custom_timers.push({
         name: name.value,

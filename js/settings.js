@@ -53,7 +53,7 @@ function setupSettings(){
     }
 
     // Set up Modal
-    const transitionDuration = document.getElementById('transition-duration')
+    const transitionDuration = document.getElementById('settings-transition-duration')
     transitionDuration.value = parseInt(settings.defaults.transition.duration) / 1000
 }
 function populateShapePickers(){
@@ -132,7 +132,15 @@ function buildCustomTimerSettings(){
             <input type="text" id="custom-timer-settings-name-${name}" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the name" value="${name}">
 
             <label class="block text-sm font-medium text-gray-900 dark:text-white">Duration (s)</label>
-            <input type="number" id="custom-timer-settings-duration-${name}" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the duration in seconds" value="${duration / 1000}">
+            <div class="flex flex-row" name="number-input-group">
+                <button name="custom-timer-settings-duration-${name}" data-action="decrement" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <input type="number" name="custom-timer-settings-duration-${name}" id="custom-timer-settings-duration-${name}" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="${duration / 1000} required="">
+                <button name="custom-timer-settings-duration-${name}" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
 
             <label class="block text-sm font-medium text-gray-900 dark:text-white">Color & Shape</label>
             <div class="flex flex-row items-center gap-1 justify-items-start">
@@ -142,7 +150,8 @@ function buildCustomTimerSettings(){
         </div>`
 
         customTimerSettingsForm.appendChild(div)
-
+        const durationInput = document.getElementById(`custom-timer-settings-duration-${name}`)
+        durationInput.value = duration / 1000
         const shapesGroup = document.getElementById(`custom-timer-settings-shape-${name}`)
 
         for (let idx = 0; idx < SHAPES.length; idx++) {

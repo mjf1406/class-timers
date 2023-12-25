@@ -8,9 +8,11 @@ A website that is meant to be displayed on a large monitor for students to see h
     - [ ] centers button now functions; it creates a centers timer
     - [ ] added transition to custom timer
     - [ ] added centers quantity to custom timers; this means custom timers now can act as centers
+    - [ ] can now delete custom timers in the custom timers settings
 - 2023/12/25
     - modals now close when clicking outside
     - modals now close when pushing the escape key
+    - switched all number inputs to decrement/increment triplets
 - 2023/12/24
     - changed end time to custom timer name when custom timer is activated
     - added custom timers settings so they can be edited

@@ -119,10 +119,22 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="mr-1 fa-solid fa-gear"></i> Settings</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                        <i class="mr-1 fa-solid fa-gear"></i> 
+                        Settings
+                        <i name="number-input-help" class="fa-regular fa-circle-question"></i>
+                    </h3>
                     <form id="settings-form" class="space-y-3" action="#">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration</label>
-                        <input type="number" id="transition-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input a number in seconds">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition Duration (sec.)</label>
+                        <div class="flex flex-row" name="number-input-group">
+                            <button name="settings-transition-duration" data-action="decrement" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <input type="number" name="settings-transition-duration" id="settings-transition-duration" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10" required="">
+                            <button name="settings-transition-duration" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
                         
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Clock</label>
                         <div class="flex flex-row items-center gap-1 justify-items-start">
@@ -168,12 +180,56 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-repeat"></i> Centers</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                        <i class="fa-solid fa-repeat"></i> 
+                        Rotations 
+                        <i name="number-input-help" class="fa-regular fa-circle-question"></i>
+                    </h3>
                     <form class="space-y-6" action="#">
                         <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preset Name</label>
-                            <input name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="20 or fewer characters is recommended" max="10">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Rotation Duration (min.) 
+                            </label>
+                            <div class="flex flex-row" name="number-input-group">
+                                <button name="rotation-duration" data-action="decrement" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input type="number" name="rotation-duration" id="rotation-duration" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10" required="">
+                                <button name="rotation-duration" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Transition Duration (sec.)
+                            </label>
+                            <div class="flex flex-row" name="number-input-group">
+                                <button name="rotation-transition-duration" data-action="decrement" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input type="number" name="rotation-transition-duration" id="rotation-transition-duration" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10" required="">
+                                <button name="rotation-transition-duration" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Number of Rotations
+                            </label>
+                            <div class="flex flex-row" name="number-input-group">
+                                <button name="rotation-quantity" data-action="decrement" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input type="number" name="rotation-quantity" id="rotation-quantity" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10" required="">
+                                <button name="rotation-quantity" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+
                         <div class="flex flex-row gap-2">
                             <button type="submit" id="save-centers" class="w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Start</button>
                             <button type="submit" id="cancel-centers" class="w-full text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" data-modal-hide="centers-modal">Cancel</button>
@@ -194,13 +250,25 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="fa-solid fa-plus"></i> Create Custom Timer</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                        <i class="fa-solid fa-plus"></i> 
+                        Create Custom Timer
+                        <i name="number-input-help" class="fa-regular fa-circle-question"></i>
+                    </h3>
                     <form class="space-y-3" action="#">
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
                         <input type="text" id="new-custom-timer-name" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the name">
 
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Duration (s)</label>
-                        <input type="number" id="new-custom-timer-duration" class="max-w-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required placeholder="Input the duration in seconds">
+                        <div class="flex flex-row" name="number-input-group">
+                            <button name="create-custom-timer-duration" data-action="decrement" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <input type="number" name="create-custom-timer-duration" id="create-custom-timer-duration" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10" required="">
+                            <button name="create-custom-timer-duration" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
 
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Color & Shape</label>
                         <div class="flex flex-row items-center gap-1 justify-items-start">
@@ -228,7 +296,11 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"><i class="mr-2 fa-solid fa-gears"></i>Custom Timers Settings</h3>
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                        <i class="mr-2 fa-solid fa-gears"></i>
+                        Custom Timers Settings
+                        <i name="number-input-help" class="fa-regular fa-circle-question"></i>
+                    </h3>
                     <form id="custom-timer-settings-form" class="space-y-3" action="#">
                         <div id="timer-settings-edits" class="flex flex-col gap-3">
                             <div class="p-2 bg-gray-200 rounded-lg dark:bg-gray-500">
@@ -278,6 +350,8 @@
 <script src="js/helpers.js"></script>
 <script src="js/colors.js"></script>
 <script src="js/customTimers.js"></script>
+<script src="js/numberInputs.js"></script>
+<script src="js/rotations.js"></script>
 
 <script>
     setTime()
