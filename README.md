@@ -3,12 +3,20 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 ## Change Log
 - 2023/12/xx
-    - [ ] need to track the state of the application, like is clock, timer, etc. being displayed so we can properly update colors and things if changes are made
-    - [ ] added transition to custom timer
-    - [ ] added centers quantity to custom timers; this means custom timers now can act as centers
-    - [ ] can now delete custom timers in the custom timers settings
-    - [ ] font color across the site now changes based on the background color
-    - [ ] the pause button now functions: it pauses the timer and the animations
+    - [x] modifying a rotation now no longer destroys all rotations
+        - tentatively solved by hiding the modifiy timer buttons
+    - [x] pause button now works during rotations
+        - tentatively solved by hiding the play and pause buttons
+- 2023/12/26
+    - pause button now pauses animation too
+    - added a larger custom timer title when a custom timer is active
+    - moved end time to between the timer and the buttons
+    - added centers quantity to custom timers; this means custom timers now can act as centers
+    - added transition to custom timer
+    - can now delete custom timers in the custom timers settings
+    - font color across the site now changes based on the background color
+    - the pause button now functions: it pauses the timer
+    - the resume button now functions
 - 2023/12/25
     - timer adjustment buttons no longer remove animation
     - centers button now functions; it creates a centers timer

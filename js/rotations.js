@@ -1,5 +1,3 @@
-const TIMER_OFFSET = SECOND * 1.8
-
 document.addEventListener("DOMContentLoaded", function () {
     const settingsData = JSON.parse(localStorage.getItem('class-timers-settings'))
     const transitionDuration = document.getElementById('rotation-transition-duration')
@@ -30,6 +28,8 @@ startRotationsButton.addEventListener('click', async function(e){
 
     centersModal.classList.toggle('hidden')
 
+    localStorage.setItem('state', 'rotations')
+    
     await setRotationsTimers(numberOfRotations, rotationDuration, transitionDuration)
 })
 
@@ -55,53 +55,38 @@ function rotationsInputsListener(){
     rotationsEndTimeDiv.innerHTML = `${endTime.toLocaleTimeString(locale, undefined)}`
 }
 
-async function setRotationsTimers(numberOfRotations, rotationDuration, transitionDuration){
+async function setRotationsTimers(numberOfRotations, rotationDuration, transitionDuration, color, shape){
+    localStorage.setItem('state','rotations')
+
     const settingsData = JSON.parse(localStorage.getItem('class-timers-settings'))
     
     const transitionColor = settingsData.defaults.transition.color
     const transitionShape = settingsData.defaults.transition.shape
-    const rotationsColor = settingsData.defaults.centers.color
-    const rotationsShape = settingsData.defaults.centers.shape
+    const rotationsColor = (color) ? color : settingsData.defaults.centers.color
+    const rotationsShape = (shape) ? shape : settingsData.defaults.centers.shape
 
     for (let i = 0; i < numberOfRotations; i++) {
-        updateUIForRotation()
+        updateUI()
+
         setTimer(rotationDuration, rotationsColor, rotationsShape)
         await sleep(rotationDuration)
         await sleep(TIMER_OFFSET)
         
-        updateUIForTransition()
         setTimer(transitionDuration, transitionColor, transitionShape)
         await sleep(transitionDuration)
         await sleep(TIMER_OFFSET)
     }
-    // Final UI update after rotations
+    
+    updateUI()
 }
-function updateUIForTransition() {
-    // UI updates for transition
-}
-function updateUIForRotation() {
-    // UI updates for counting
-}
-function startTransitionCountdown(duration) {
-    // TODO: Play the transition audio throughout the transition duration
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            // Update transition UI
-            if (TODO) { /* condition to end transition */
-                clearInterval(interval);
-                resolve();
-            }
-        }, duration);
-    });
-}
-function startRotationCountdown(duration) {
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            // Update timer UI
-            if (TODO) { /* condition to end timer */
-                clearInterval(interval);
-                resolve();
-            }
-        }, duration);
-    });
+function updateUI() {
+    const modifyTimerButtonsPlus = document.getElementById('timer-adjustment-buttons-plus')
+    const modifyTimerButtonsMinus = document.getElementById('timer-adjustment-buttons-minus')
+    const playButton = document.getElementById('play-timer')
+    const pauseButton = document.getElementById('pause-timer')
+
+    modifyTimerButtonsPlus.classList.toggle('hidden')
+    modifyTimerButtonsMinus.classList.toggle('hidden')
+    playButton.classList.toggle('hidden')
+    pauseButton.classList.toggle('hidden')
 }

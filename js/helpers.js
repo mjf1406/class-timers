@@ -27,6 +27,12 @@ function getSelectedValueFromRadioGroup(radioGroupName) {
         console.error("🚀 ~ file: global.js:547 ~ getSelectedValueFromRadioGroup ~ error:", error)
     }
 }
+function generateId() { // Function to generate a random ID
+    // Source: https://stackoverflow.com/a/44622300
+    return Array.from(Array(16), () =>
+        Math.floor(Math.random() * 36).toString(36)
+    ).join("");
+}
 Array.prototype.random = function() {
     if (this.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * this.length);

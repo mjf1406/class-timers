@@ -1,12 +1,15 @@
 var timerInterval
 var clockInterval
 var transitionInterval
+var isPaused = false
 
 const SECOND = 1000
 const MINUTE = 60000
 const TEN_SECONDS = 10000
 const TRANSITION_DURATION = 30000
 const TIMER_DONE_AUDIO = 10000
+const TIMER_OFFSET = SECOND * 1
+
 const body = document.getElementById('body')
 
 function setTime(){
@@ -29,6 +32,8 @@ function setDate(){
 }
 function cancelTimer(color, shape){
     clearInterval(timerInterval)
+    clearInterval(transitionInterval)
+
     const endTimeDiv = document.getElementById('timer-end')
     endTimeDiv.classList.toggle('hidden')
 
@@ -42,8 +47,13 @@ function cancelTimer(color, shape){
     defaultTimersGroup.classList.remove('hidden')
     customTimersGroup.classList.remove('hidden')
 
+    const customTimerTitle = document.getElementById('custom-timer-title')
+    customTimerTitle.classList.toggle('hidden')
+    customTimerTitle.innerHTML = ''
+
     setTime()
     clockInterval = setInterval(setTime, 1000)
+    localStorage.setItem('state', 'clock')
 
     const classes = getClassesThatInclude('bg', 'body')
     removeClassesFromElement(classes, 'body')
@@ -54,6 +64,30 @@ function cancelTimer(color, shape){
     setColors(color)
     populateShapes(shape)
     animateIcons()
+}
+function pauseTimer(){
+    if (isPaused) return makeToast('The timer is already paused!', 'warning')
+    
+    isPaused = true
+
+    const timerDiv = document.getElementById('time')
+    timerDiv.classList.toggle('opacity-25')
+
+    updateAnimationState(isPaused)
+}
+function resumeTimer(){
+    if (!isPaused) return makeToast('The timer is already running!', 'warning')
+
+    isPaused = false
+    
+    const timerDiv = document.getElementById('time')
+    const currentDuration = parseInt(timerDiv.name)
+    const adjustingTimer = true
+    setEndTime(currentDuration, adjustingTimer)
+
+    timerDiv.classList.toggle('opacity-25')
+
+    updateAnimationState(isPaused)
 }
 function setTimer(durationMilliseconds, color, shape){
     const divTimer = document.getElementById('time')
@@ -102,25 +136,28 @@ async function timer(transition) {
     let repeated = localStorage.getItem('repeated')
     let divTimer = document.getElementById('time')
     let milliseconds = parseInt(divTimer.name)
-
-    if (!transition && milliseconds <= 12500 && milliseconds >= 11500) {
-        audioTenSecondCountdown.play() 
+    if (!isPaused){
+        if (!transition && milliseconds <= 12500 && milliseconds >= 11500) {
+            audioTenSecondCountdown.play() 
+        }
+        if (!transition && milliseconds <= 2500 && milliseconds >= 1500) {
+            audioTimesUp.play() 
+        }
+        if (milliseconds <= 1000) {
+            const settings = JSON.parse(localStorage.getItem('class-timers-settings'))
+            const data = settings.defaults.clock
+            const color = data.color
+            const shape = data.shape
+            cancelTimer(color, shape)
+        }
+        milliseconds = milliseconds - 1000
+        divTimer.innerHTML = convertMsToTime(milliseconds)
+        divTimer.name = milliseconds
     }
-    if (!transition && milliseconds <= 2500 && milliseconds >= 1500) {
-        audioTimesUp.play() 
-    }
-    if (milliseconds <= 1000) {
-        const settings = JSON.parse(localStorage.getItem('class-timers-settings'))
-        const data = settings.defaults.clock
-        const color = data.color
-        const shape = data.shape
-        cancelTimer(color, shape)
-    }
-    milliseconds = milliseconds - 1000
-    divTimer.innerHTML = convertMsToTime(milliseconds)
-    divTimer.name = milliseconds
 }
 function setEndTime(timerDuration, adjustingTimer){
+    const state = localStorage.getItem('state')
+    if (state == 'rotations') return
     const locale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
     const time = new Date();
     const newTime = new Date(time.getTime() + timerDuration); // Adds the timerDuration to the current date

@@ -8,6 +8,7 @@ timers.forEach(element => {
         const durationMilliseconds = parseInt(this.id) * 1000
         setTimer(durationMilliseconds, color, shape)
         setEndTime(durationMilliseconds)
+        localStorage.setItem('state', 'timer')
     })
 });
 
@@ -32,8 +33,16 @@ const cancelTimerButton = document.getElementById('cancel-timer')
 cancelTimerButton.addEventListener('click', function(){ 
     const settings = JSON.parse(localStorage.getItem('class-timers-settings'))
     const data = settings.defaults.clock
-    const color = data.color
+    let color = data.color
     const shape = data.shape
     cancelTimer(color, shape)
+    color = new Color(color)
+    setColors(color)
+    localStorage.setItem('state', 'canceled')
 })
 
+const pauseTimerButton = document.getElementById('pause-timer')
+pauseTimerButton.addEventListener('click', pauseTimer)
+
+const resumeTimerButton = document.getElementById('play-timer')
+resumeTimerButton.addEventListener('click', resumeTimer)

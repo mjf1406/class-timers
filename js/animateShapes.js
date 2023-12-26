@@ -10,11 +10,12 @@ function populateShapes(shape){
 
     for (let index = 0; index < NUMBER_OF_SHAPES; index++) {
         const i = document.createElement('i')
-        const fontSize = FONT_SIZES.random()
         i.classList.add(`fa-solid`, `fa-${shape}`)
         shapesDiv.appendChild(i)
     }
 }
+
+
 
 function randomPosition() {
     return Math.floor(Math.random() * 90) + 1 // Random position from 1% to 90%
@@ -34,19 +35,45 @@ function animateIcon(icon) {
 function randomScale() {
     return 0.5 + Math.random() * 1.5
 }
+// function animateIcons() {
+//     const icons = document.querySelectorAll("#animated-icons i")
+
+//     icons.forEach((icon) => {
+//         const duration = randomDuration()
+
+//         // Initial animation setup
+//         animateIcon(icon)
+//         icon.style.animation = `changeSize ${duration}s ease-in-out infinite`
+
+//         // Update position at the end of each resize cycle
+//         icon.addEventListener("animationiteration", () => {
+//             animateIcon(icon)
+//         })
+//     })
+// }
 function animateIcons() {
-    const icons = document.querySelectorAll("#animated-icons i")
+    const icons = document.querySelectorAll("#animated-icons i");
 
     icons.forEach((icon) => {
-        const duration = randomDuration()
+        const duration = randomDuration();
 
         // Initial animation setup
-        animateIcon(icon)
-        icon.style.animation = `changeSize ${duration}s ease-in-out infinite`
+        animateIcon(icon);
+        icon.style.animation = `changeSize ${duration}s ease-in-out infinite`;
+        icon.style.animationPlayState = isPaused ? 'paused' : 'running';
 
         // Update position at the end of each resize cycle
         icon.addEventListener("animationiteration", () => {
-            animateIcon(icon)
-        })
-    })
+            if (!isPaused) {
+                animateIcon(icon);
+            }
+        });
+    });
+}
+function updateAnimationState(isPaused){
+    const icons = document.querySelectorAll("#animated-icons i");
+
+    icons.forEach((icon) => {
+        icon.style.animationPlayState = isPaused ? 'paused' : 'running';
+    });
 }
