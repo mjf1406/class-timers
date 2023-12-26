@@ -48,7 +48,7 @@ function cancelTimer(color, shape){
     customTimersGroup.classList.remove('hidden')
 
     const customTimerTitle = document.getElementById('custom-timer-title')
-    customTimerTitle.classList.toggle('hidden')
+    customTimerTitle.classList.add('hidden')
     customTimerTitle.innerHTML = ''
 
     setTime()

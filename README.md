@@ -4,10 +4,11 @@ A website that is meant to be displayed on a large monitor for students to see h
 ## Change Log
 - 2023/12/xx
     - [x] modifying a rotation now no longer destroys all rotations
-        - tentatively solved by hiding the modifiy timer buttons
+        - tentatively solved by hiding the modify timer buttons
     - [x] pause button now works during rotations
         - tentatively solved by hiding the play and pause buttons
 - 2023/12/26
+    - fixed: custom timer title was not displaying on second play
     - pause button now pauses animation too
     - added a larger custom timer title when a custom timer is active
     - moved end time to between the timer and the buttons

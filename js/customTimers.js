@@ -21,7 +21,7 @@ function populateCustomTimers(settings){
             data = data.find(i => i.name == name)
 
             const customTimerTitle = document.getElementById('custom-timer-title')
-            customTimerTitle.classList.toggle('hidden')
+            customTimerTitle.classList.remove('hidden')
             customTimerTitle.innerHTML = name
 
             const duration = parseInt(data.duration)
