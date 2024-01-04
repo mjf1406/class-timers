@@ -126,9 +126,12 @@ function setTimer(durationMilliseconds, color, shape){
     }
 }
 async function timer(transition) {
-    const transitionTrack = new Audio('./class-timers/data/audio/30s-jeopardy-song.mp3')
-    const audioTenSecondCountdown = new Audio('./class-timers/data/audio/10s-calm-alarm.mp3')
-    const audioTimesUp = new Audio('./class-timers/data/audio/4s-magical-surprise.mp3')
+    const localEnv = false // TODO: Change this to false before pushing!
+    const pathExtension = (localEnv == true) ? '' : 'class-timers/' 
+
+    const transitionTrack = new Audio(`/${pathExtension}data/audio/30s-jeopardy-song.mp3`)
+    const audioTenSecondCountdown = new Audio(`/${pathExtension}data/audio/10s-calm-alarm.mp3`)
+    const audioTimesUp = new Audio(`/${pathExtension}data/audio/4s-magical-surprise.mp3`)
     audioTenSecondCountdown.loop = false
     transitionTrack.loop = false
     audioTimesUp.loop = false
