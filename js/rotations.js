@@ -57,36 +57,48 @@ function rotationsInputsListener(){
 
 async function setRotationsTimers(numberOfRotations, rotationDuration, transitionDuration, color, shape){
     localStorage.setItem('state','rotations')
-
+    const timerTitle = document.getElementById('custom-timer-title')
+    timerTitle.classList.remove('hidden')
+    
     const settingsData = JSON.parse(localStorage.getItem('class-timers-settings'))
     
     const transitionColor = settingsData.defaults.transition.color
     const transitionShape = settingsData.defaults.transition.shape
     const rotationsColor = (color) ? color : settingsData.defaults.centers.color
     const rotationsShape = (shape) ? shape : settingsData.defaults.centers.shape
-
+    
+    
     for (let i = 0; i < numberOfRotations; i++) {
-        updateUI()
-
+        timerTitle.innerHTML = `Rotation ${i + 1} / ${numberOfRotations}`
         setTimer(rotationDuration, rotationsColor, rotationsShape)
+        updateUI('add')
         await sleep(rotationDuration)
         await sleep(TIMER_OFFSET)
         
         setTimer(transitionDuration, transitionColor, transitionShape)
+        updateUI('add')
         await sleep(transitionDuration)
         await sleep(TIMER_OFFSET)
     }
     
-    updateUI()
+    updateUI('remove')
 }
-function updateUI() {
+function updateUI(type) {
     const modifyTimerButtonsPlus = document.getElementById('timer-adjustment-buttons-plus')
     const modifyTimerButtonsMinus = document.getElementById('timer-adjustment-buttons-minus')
     const playButton = document.getElementById('play-timer')
     const pauseButton = document.getElementById('pause-timer')
 
-    modifyTimerButtonsPlus.classList.toggle('hidden')
-    modifyTimerButtonsMinus.classList.toggle('hidden')
-    playButton.classList.toggle('hidden')
-    pauseButton.classList.toggle('hidden')
+    if (type == 'add') {
+        modifyTimerButtonsPlus.classList.add('hidden')
+        modifyTimerButtonsMinus.classList.add('hidden')
+        playButton.classList.add('hidden')
+        pauseButton.classList.add('hidden')
+    }
+    else if (type == 'remove') {
+        modifyTimerButtonsPlus.classList.remove('hidden')
+        modifyTimerButtonsMinus.classList.remove('hidden')
+        playButton.classList.remove('hidden')
+        pauseButton.classList.remove('hidden')
+    }
 }

@@ -35,7 +35,7 @@ function cancelTimer(color, shape){
     clearInterval(transitionInterval)
 
     const endTimeDiv = document.getElementById('timer-end')
-    endTimeDiv.classList.toggle('hidden')
+    endTimeDiv.classList.add('hidden')
 
     // Reveal timer adjustment buttons
     const adjustmentButtons = document.getElementById('timer-adjustment-buttons')
@@ -108,7 +108,17 @@ function setTimer(durationMilliseconds, color, shape){
 
     // Reveal timer adjustment buttons
     const adjustmentButtons = document.getElementById('timer-adjustment-buttons')
+    const modifyTimerButtonsPlus = document.getElementById('timer-adjustment-buttons-plus')
+    const modifyTimerButtonsMinus = document.getElementById('timer-adjustment-buttons-minus')
+    const playButton = document.getElementById('play-timer')
+    const pauseButton = document.getElementById('pause-timer')
+
     adjustmentButtons.classList.remove('hidden')
+    modifyTimerButtonsMinus.classList.remove('hidden')
+    modifyTimerButtonsPlus.classList.remove('hidden')
+    pauseButton.classList.remove('hidden')
+    playButton.classList.remove('hidden')
+
 
     timerInterval = setInterval(timer, 1000)
 
