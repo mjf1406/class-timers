@@ -127,7 +127,7 @@ function setTimer(durationMilliseconds, color, shape){
 }
 async function timer(transition) {
     const localEnv = false // TODO: Change this to false before pushing!
-    const pathExtension = (localEnv == true) ? '' : 'class-timers/' 
+    const pathExtension = (localEnv == false) ? 'class-timers/' : '' 
 
     const transitionTrack = new Audio(`/${pathExtension}data/audio/30s-jeopardy-song.mp3`)
     const audioTenSecondCountdown = new Audio(`/${pathExtension}data/audio/10s-calm-alarm.mp3`)
