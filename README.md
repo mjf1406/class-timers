@@ -7,6 +7,9 @@ A website that is meant to be displayed on a large monitor for students to see h
         - tentatively solved by hiding the modify timer buttons
     - [ ] pause button now works during rotations
         - tentatively solved by hiding the play and pause buttons
+- 2024/1/6
+    - info modal text is not black for light theme
+    - info modal buttons text is now always white
 - 2024/1/4
     - added rotation counter to rotations
     - fixed a bug that would sometime show adjustment buttons during rotations
