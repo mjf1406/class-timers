@@ -10,6 +10,10 @@ const TRANSITION_DURATION = 30000
 const TIMER_DONE_AUDIO = 10000
 const TIMER_OFFSET = SECOND * 1
 
+const transitionTrack = new Audio(`data/audio/30s-jeopardy-song.mp3`)
+const audioTenSecondCountdown = new Audio(`data/audio/10s-calm-alarm.mp3`)
+const audioTimesUp = new Audio(`data/audio/4s-magical-surprise.mp3`)
+
 const body = document.getElementById('body')
 
 function setTime(){
@@ -33,6 +37,10 @@ function setDate(){
 function cancelTimer(color, shape){
     clearInterval(timerInterval)
     clearInterval(transitionInterval)
+
+    audioTenSecondCountdown.stop()
+    transitionTrack.stop()
+    audioTimesUp.stop()
 
     const endTimeDiv = document.getElementById('timer-end')
     endTimeDiv.classList.add('hidden')
@@ -136,9 +144,6 @@ function setTimer(durationMilliseconds, color, shape){
     }
 }
 async function timer(transition) {
-    const transitionTrack = new Audio(`data/audio/30s-jeopardy-song.mp3`)
-    const audioTenSecondCountdown = new Audio(`data/audio/10s-calm-alarm.mp3`)
-    const audioTimesUp = new Audio(`data/audio/4s-magical-surprise.mp3`)
     audioTenSecondCountdown.loop = false
     transitionTrack.loop = false
     audioTimesUp.loop = false

@@ -2,11 +2,15 @@
 A website that is meant to be displayed on a large monitor for students to see how much time is remaining on any given timer.
 
 ## Change Log
-- 2023/12/xx
+- 2024/1/xx
     - [ ] modifying a rotation now no longer destroys all rotations
         - tentatively solved by hiding the modify timer buttons
     - [ ] pause button now works during rotations
         - tentatively solved by hiding the play and pause buttons
+- 2024/1/10
+    - cancel button now stops audio playback
+    - animated shapes now no longer get smaller and smaller over time
+    - reduced the number of shapes to 10 as they are now bigger on average
 - 2024/1/6
     - info modal text is not black for light theme
     - info modal buttons text is now always white
