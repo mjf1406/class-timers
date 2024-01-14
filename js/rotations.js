@@ -67,18 +67,22 @@ async function setRotationsTimers(numberOfRotations, rotationDuration, transitio
     const rotationsColor = (color) ? color : settingsData.defaults.centers.color
     const rotationsShape = (shape) ? shape : settingsData.defaults.centers.shape
     
-    
     for (let i = 0; i < numberOfRotations; i++) {
+        timerTitle.classList.remove('hidden')
         timerTitle.innerHTML = `Rotation ${i + 1} / ${numberOfRotations}`
         setTimer(rotationDuration, rotationsColor, rotationsShape)
         updateUI('add')
         await sleep(rotationDuration)
         await sleep(TIMER_OFFSET)
         
+        if (numberOfRotations === i + 1) continue // Skip the last transition of the Rotations
         setTimer(transitionDuration, transitionColor, transitionShape)
+        transitionTrack.loop = true
+        transitionTrack.play()
         updateUI('add')
         await sleep(transitionDuration)
         await sleep(TIMER_OFFSET)
+        transitionTrack.stop()
     }
     
     updateUI('remove')

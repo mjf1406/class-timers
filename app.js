@@ -127,7 +127,6 @@ function setTimer(durationMilliseconds, color, shape){
     pauseButton.classList.remove('hidden')
     playButton.classList.remove('hidden')
 
-
     timerInterval = setInterval(timer, 1000)
 
     // Adjust the background color
@@ -152,10 +151,10 @@ async function timer(transition) {
     let divTimer = document.getElementById('time')
     let milliseconds = parseInt(divTimer.name)
     if (!isPaused){
-        if (!transition && milliseconds <= 12500 && milliseconds >= 11500) {
+        if (!transition && milliseconds <= 11500 && milliseconds >= 10500) {
             audioTenSecondCountdown.play() 
         }
-        if (!transition && milliseconds <= 2500 && milliseconds >= 1500) {
+        if (!transition && milliseconds <= 2000 && milliseconds >= 1000) {
             audioTimesUp.play() 
         }
         if (milliseconds <= 1000) {

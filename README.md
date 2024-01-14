@@ -7,6 +7,12 @@ A website that is meant to be displayed on a large monitor for students to see h
         - tentatively solved by hiding the modify timer buttons
     - [ ] pause button now works during rotations
         - tentatively solved by hiding the play and pause buttons
+- 2024/1/14
+    - shapes now no longer extend the viewport
+    - Rotations counter now is now properly displayed in every rotation
+    - the last transition is skipped in Rotations
+    - transition audio now properly plays
+    - fine-tuned 10s warning audio and times up audio
 - 2024/1/10
     - cancel button now stops audio playback
     - animated shapes now no longer get smaller and smaller over time
