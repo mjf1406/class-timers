@@ -10,7 +10,7 @@ const TRANSITION_DURATION = 30000;
 const TIMER_DONE_AUDIO = 10000;
 const TIMER_OFFSET = SECOND * 1;
 const AUTO_CANCEL_TIMER_THRESHOLD = SECOND * 30 - SECOND;
-10;
+
 const transitionTrack = new Audio(`data/audio/30s-jeopardy-song.mp3`);
 const audioTimesUp = new Audio(`data/audio/10s-calm-alarm.mp3`);
 
