@@ -10,6 +10,8 @@ A website that is meant to be displayed on a large monitor for students to see h
     -   [ ] pause button now works during rotations
         -   tentatively solved by hiding the play and pause buttons
     -   the current timer now displays on all timers
+    -   edit custom timer does not seem to work
+    -   add an icon picker for more icon choices
 -   2024/2/1
     -   removed the sound when timer ends
     -   changed the end timer sound to be the nice sounding track: 10s-calm-alarm.mp3
