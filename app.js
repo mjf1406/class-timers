@@ -16,7 +16,7 @@ const audioTimesUp = new Audio(`data/audio/10s-calm-alarm.mp3`);
 
 const body = document.getElementById("body");
 
-$("#font-awesome-picker").iconpicker();
+// $("#font-awesome-picker").iconpicker();
 
 function setTime() {
     let locale =
