@@ -11,6 +11,9 @@ A website that is meant to be displayed on a large monitor for students to see h
         -   tentatively solved by hiding the play and pause buttons
     -   the current time now displays on all timers
     -   add an icon picker for more icon choices
+-   2024/3/15
+    -   fixed: end timer sound constantly play after first rotation
+    -   fixed: cannot delete custom timers
 -   2024/2/23
     -   space bar now pauses, resumes, or cancels a timer. Cancels the timer if time remaining is <= 0
 -   2024/2/9

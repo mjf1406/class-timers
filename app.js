@@ -109,7 +109,8 @@ function resumeTimer() {
 
     updateAnimationState(isPaused);
 }
-function setTimer(durationMilliseconds, color, shape) {
+function setTimer(durationMilliseconds, color, shape, transition) {
+    if (!transition) transition = false;
     const divTimer = document.getElementById("time");
     divTimer.innerHTML = convertMsToTime(durationMilliseconds);
     divTimer.name = durationMilliseconds;
@@ -160,15 +161,16 @@ function setTimer(durationMilliseconds, color, shape) {
         animateIcons();
     }
 }
-async function timer(transition) {
+async function timer() {
     transitionTrack.loop = true;
     audioTimesUp.loop = true;
 
-    let repeated = localStorage.getItem("repeated");
+    let timerState = localStorage.getItem("state");
     let divTimer = document.getElementById("time");
     let milliseconds = parseInt(divTimer.name);
     if (!isPaused) {
-        if (!transition && milliseconds <= SECOND * 1.5) audioTimesUp.play();
+        if (timerState != "rotations" && milliseconds <= SECOND * 1.5)
+            audioTimesUp.play();
         if (milliseconds <= -AUTO_CANCEL_TIMER_THRESHOLD) {
             const settings = JSON.parse(
                 localStorage.getItem("class-timers-settings")
