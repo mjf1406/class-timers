@@ -2,6 +2,7 @@ var timerInterval;
 var clockInterval;
 var transitionInterval;
 var isPaused = false;
+var rotationsInterval;
 
 const SECOND = 1000;
 const MINUTE = 60000;
