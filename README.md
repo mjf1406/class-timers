@@ -11,6 +11,9 @@ A website that is meant to be displayed on a large monitor for students to see h
         -   tentatively solved by hiding the play and pause buttons
     -   the current time now displays on all timers
     -   add an icon picker for more icon choices
+-   2024/04/02
+    -   fixed a spontaneous rotations end time calculation bug
+    -   the end time text for rotations is now no longer white when light theme is active
 -   2024/3/15
     -   fixed: end timer sound constantly play after first rotation
     -   fixed: cannot delete custom timers

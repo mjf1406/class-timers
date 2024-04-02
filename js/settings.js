@@ -212,7 +212,6 @@ function buildCustomTimerSettings() {
             const div = document.createElement("div");
 
             const id = `${shape}-${index}`;
-            console.log("🚀 ~ buildCustomTimerSettings ~ id:", id);
 
             label.for = id;
             label.id = `label-${id}`;

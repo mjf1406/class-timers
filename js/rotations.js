@@ -54,17 +54,16 @@ startRotationsButton.addEventListener("click", async function (e) {
 
 function calculateTotalTime() {
     const rotationDuration =
-        parseInt(document.getElementById("rotation-duration").value) *
+        parseFloat(document.getElementById("rotation-duration").value) *
         60 *
         1000;
     const transitionDuration =
-        parseInt(
+        parseFloat(
             document.getElementById("rotation-transition-duration").value
         ) * 1000;
     const numberOfRotations = parseInt(
         document.getElementById("rotation-quantity").value
     );
-
     // return ( ( rotationDuration + transitionDuration) * numberOfRotations - transitionDuration ) // Subtracts one transition if there is no transition at the end
     return (rotationDuration + transitionDuration) * numberOfRotations;
 }
