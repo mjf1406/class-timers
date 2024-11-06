@@ -184,7 +184,7 @@ async function timer() {
         if (timerState != "rotations") {
             // Check for 3 minutes left
             if (!threeMinutesPlayed && milliseconds <= 3 * MINUTE && milliseconds > 2 * MINUTE) {
-                audioThreeMinutesLeft.play();
+                playSoundMultipleTimes(audioThreeMinutesLeft);
                 threeMinutesPlayed = true;
             }
 
@@ -223,4 +223,14 @@ function setEndTime(timerDuration, adjustingTimer) {
     const divTimerEnd = document.getElementById("timer-end");
     if (!adjustingTimer) divTimerEnd.classList.toggle("hidden");
     divTimerEnd.innerHTML = newTime.toLocaleTimeString(locale, undefined);
+}
+function playSoundMultipleTimes(audio, repeatCount = 3, interval = 500) {
+    for (let i = 0; i < repeatCount; i++) {
+        setTimeout(() => {
+            audio.currentTime = 0; // Reset to start
+            audio.play().catch(error => {
+                console.error(`Failed to play audio on attempt ${i + 1}:`, error);
+            });
+        }, i * interval);
+    }
 }
