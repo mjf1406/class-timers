@@ -190,7 +190,7 @@ async function timer() {
 
             // Check for 1 minute left
             if (!oneMinutePlayed && milliseconds <= MINUTE && milliseconds > 0) {
-                audioOneMinuteLeft.play();
+                playSoundMultipleTimes(audioOneMinuteLeft);
                 oneMinutePlayed = true;
             }
         }
@@ -224,13 +224,35 @@ function setEndTime(timerDuration, adjustingTimer) {
     if (!adjustingTimer) divTimerEnd.classList.toggle("hidden");
     divTimerEnd.innerHTML = newTime.toLocaleTimeString(locale, undefined);
 }
-function playSoundMultipleTimes(audio, repeatCount = 3, interval = 500) {
-    for (let i = 0; i < repeatCount; i++) {
-        setTimeout(() => {
-            audio.currentTime = 0; // Reset to start
-            audio.play().catch(error => {
-                console.error(`Failed to play audio on attempt ${i + 1}:`, error);
+function playSoundMultipleTimes(audio, repeatCount = 3) {
+    return new Promise((resolve) => {
+        let playCount = 0;
+        
+        // Function to play a single instance
+        function playNext() {
+            if (playCount >= repeatCount) {
+                resolve();
+                return;
+            }
+            
+            audio.currentTime = 0;
+            
+            // Play the audio
+            audio.play().then(() => {
+                playCount++;
+                
+                // Wait for the current playback to finish before starting the next one
+                audio.addEventListener('ended', () => {
+                    // Small delay to ensure clear separation between plays
+                    setTimeout(playNext, 100);
+                }, { once: true }); // Use once: true to prevent memory leaks
+            }).catch(error => {
+                console.error(`Failed to play audio on attempt ${playCount + 1}:`, error);
+                playCount++;
+                playNext(); // Continue to next attempt even if there's an error
             });
-        }, i * interval);
-    }
+        }
+        
+        playNext();
+    });
 }
