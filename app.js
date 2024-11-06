@@ -14,8 +14,13 @@ const AUTO_CANCEL_TIMER_THRESHOLD = SECOND * 30 - SECOND;
 
 const transitionTrack = new Audio(`data/audio/30s-jeopardy-song.mp3`);
 const audioTimesUp = new Audio(`data/audio/10s-calm-alarm.mp3`);
+const audioThreeMinutesLeft = new Audio(`data/audio/3-minutes-warning.mp3`);
+const audioOneMinuteLeft = new Audio(`data/audio/1-minute-warning.mp3`);
 
 const body = document.getElementById("body");
+
+let threeMinutesPlayed = false;
+let oneMinutePlayed = false;
 
 // $("#font-awesome-picker").iconpicker();
 
@@ -85,6 +90,9 @@ function cancelTimer(color, shape) {
     setColors(color);
     populateShapes(shape);
     animateIcons();
+
+    threeMinutesPlayed = false;
+    oneMinutePlayed = false;
 }
 function pauseTimer() {
     if (isPaused) return makeToast("The timer is already paused!", "warning");
@@ -161,6 +169,9 @@ function setTimer(durationMilliseconds, color, shape, transition) {
         populateShapes(shape);
         animateIcons();
     }
+
+    threeMinutesPlayed = false;
+    oneMinutePlayed = false;
 }
 async function timer() {
     transitionTrack.loop = true;
@@ -170,6 +181,19 @@ async function timer() {
     let divTimer = document.getElementById("time");
     let milliseconds = parseInt(divTimer.name);
     if (!isPaused) {
+        if (timerState != "rotations") {
+            // Check for 3 minutes left
+            if (!threeMinutesPlayed && milliseconds <= 3 * MINUTE && milliseconds > 2 * MINUTE) {
+                audioThreeMinutesLeft.play();
+                threeMinutesPlayed = true;
+            }
+
+            // Check for 1 minute left
+            if (!oneMinutePlayed && milliseconds <= MINUTE && milliseconds > 0) {
+                audioOneMinuteLeft.play();
+                oneMinutePlayed = true;
+            }
+        }
         if (timerState != "rotations" && milliseconds <= SECOND * 1.5)
             audioTimesUp.play();
         if (milliseconds <= -AUTO_CANCEL_TIMER_THRESHOLD) {
