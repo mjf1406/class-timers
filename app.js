@@ -183,13 +183,13 @@ async function timer() {
     if (!isPaused) {
         if (timerState != "rotations") {
             // Check for 3 minutes left
-            if (!threeMinutesPlayed && milliseconds <= 3 * MINUTE && milliseconds > 2 * MINUTE) {
+            if (!threeMinutesPlayed && milliseconds <= 3 * MINUTE + (6 * SECOND) && milliseconds > 2 * MINUTE) {
                 playSoundMultipleTimes(audioThreeMinutesLeft);
                 threeMinutesPlayed = true;
             }
 
             // Check for 1 minute left
-            if (!oneMinutePlayed && milliseconds <= MINUTE && milliseconds > 0) {
+            if (!oneMinutePlayed && milliseconds <= MINUTE + (6 * SECOND) && milliseconds > 0) {
                 playSoundMultipleTimes(audioOneMinuteLeft);
                 oneMinutePlayed = true;
             }
