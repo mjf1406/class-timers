@@ -1,8 +1,24 @@
+<!-- @format -->
+
 # Class Timers
 
 A website that is meant to be displayed on a large monitor for students to see how much time is remaining on any given timer.
 
+## To-do List
+
+-   created a modal for uploading audio
+-   added the different audio to the settings modal
+    -   transition audio
+    -   1 minute warning audio
+    -   3 minute warning audio
+    -   times up audio
+-   all audio playing now uses the indexedDb files
+
 ## Change Log
+
+2025/03/05
+
+-   getting things ready to add custom audio uploads
 
 -   2024/1/xx
     -   [ ] modifying a rotation now no longer destroys all rotations
