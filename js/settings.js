@@ -1,3 +1,5 @@
+/** @format */
+
 // const SHAPES = ['xmark','burst','certificate','circle','cloud','clover','crown','diamond','heart','shield','square','star']
 const SHAPES = [
     "xmark",
@@ -8,31 +10,39 @@ const SHAPES = [
     "heart",
     "square",
     "star",
+    "certificate",
+    "burst",
 ];
 const DEFAULTS = {
     clock: {
         color: "#BA4949",
         shape: null,
-        simul_audio: null,
+        simultaneous_audio: null,
         end_audio: null,
     },
     transition: {
         color: "#D3E000",
         shape: "circle",
-        simul_audio: "30s-jeopardy-song.mp3",
+        simultaneous_audio: "30s-jeopardy-song.mp3",
         duration: SECOND * 30,
         end_audio: null,
     },
     timer: {
         color: "#397097",
         shape: "diamond",
-        simul_audio: null,
+        simultaneous_audio: null,
         end_audio: "10s-calm-alarm.mp3",
+    },
+    "1-min-warn": {
+        end_audio: "1-minute-warning.mp3",
+    },
+    "3-min-warn": {
+        end_audio: "3-minutes-warning.mp3",
     },
     centers: {
         color: "#61075f",
         shape: "star",
-        simul_audio: null,
+        simultaneous_audio: null,
         end_audio: null,
     },
 };
@@ -46,6 +56,12 @@ const CUSTOM_TIMERS = [
         audio: null,
         shape: "cloud",
     },
+];
+const AUDIO_OPTIONS = [
+    "timer-audio",
+    "transition-audio",
+    "1-min-warn-audio",
+    "3-min-warn-audio",
 ];
 
 // General Settings
@@ -65,6 +81,8 @@ function setupSettings() {
     );
     transitionDuration.value =
         parseInt(settings.defaults.transition.duration) / 1000;
+
+    populateAudioSelects(settings.defaults);
 }
 function populateShapePickers() {
     const shapePickers = document.getElementsByName("shape-picker");
@@ -141,6 +159,27 @@ function setColorPickers() {
         if (id.includes("custom")) continue;
         const data = settings.defaults[id];
         element.value = data.color;
+    }
+}
+async function populateAudioSelects(settings) {
+    const audioFiles = await db.audio.toArray();
+    for (const element of AUDIO_OPTIONS) {
+        const settingsKey = element.replace("-audio", "");
+        const html = document.getElementById(element);
+        html.innerHTML = "";
+        for (const file of audioFiles) {
+            const option = document.createElement("option");
+            const filename = file.name;
+            option.value = filename;
+            option.innerHTML = filename;
+            html.appendChild(option);
+            if (
+                settings[settingsKey]["end_audio"] === filename ||
+                settings[settingsKey]["simultaneous_audio"] === filename
+            ) {
+                option.selected = true;
+            }
+        }
     }
 }
 
@@ -328,11 +367,13 @@ saveSettings.addEventListener("click", function (e) {
         localStorage.getItem("class-timers-settings")
     );
 
+    // Save transition duration
     const transitionDuration = document.getElementById(
         "settings-transition-duration"
     );
-    settings.defaults.transition.duration = transitionDuration.value;
+    settingsData.defaults.transition.duration = transitionDuration.value;
 
+    // Save Colors and Shapes
     for (let index = 0; index < colorPickers.length; index++) {
         const element = colorPickers[index];
         const type = element.id.replace("-color", "");
@@ -349,5 +390,51 @@ saveSettings.addEventListener("click", function (e) {
             animateIcons();
         }
     }
+
+    AUDIO_OPTIONS.forEach((optionId) => {
+        const audioSelect = document.getElementById(optionId);
+        const audioValue = audioSelect.value;
+        const key = optionId.replace("-audio", ""); // maps to "timer", "transition", etc.
+        const currentDefault = settingsData.defaults[key];
+
+        // If the default has only one of the audio properties set, update that one.
+        if (
+            currentDefault.simultaneous_audio === null &&
+            currentDefault.end_audio !== null
+        ) {
+            currentDefault.end_audio = audioValue;
+        } else if (
+            currentDefault.simultaneous_audio !== null &&
+            currentDefault.end_audio === null
+        ) {
+            currentDefault.simultaneous_audio = audioValue;
+        } else {
+            // If both exist or both are null, default to updating end_audio.
+            currentDefault.end_audio = audioValue;
+        }
+    });
+
+    (async function initAudio() {
+        // Fire off all audio creation promises concurrently
+        const [transition, timesUp, threeMinutes, oneMinute] =
+            await Promise.all([
+                createAudioFromBuffer(
+                    settingsData.defaults.transition.simultaneous_audio
+                ),
+                createAudioFromBuffer(settingsData.defaults.timer.end_audio),
+                createAudioFromBuffer(
+                    settingsData.defaults["3-min-warn"].end_audio
+                ),
+                createAudioFromBuffer(
+                    settingsData.defaults["1-min-warn"].end_audio
+                ),
+            ]);
+
+        // Assign the resulting audio objects to your variables
+        transitionTrack = transition;
+        audioTimesUp = timesUp;
+        audioThreeMinutesLeft = threeMinutes;
+        audioOneMinuteLeft = oneMinute;
+    })();
     localStorage.setItem("class-timers-settings", JSON.stringify(settingsData));
 });

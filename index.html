@@ -190,6 +190,22 @@
 
 
     <!-- MODALS -->
+    <div id="upload-audio-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Modal Background -->
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <!-- Modal Content -->
+        <div class="relative z-10 w-full max-w-md p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Upload Audio File</h2>
+            <input type="file" id="audio-file-input" accept="audio/*"
+                class="block w-full p-2 mb-4 border border-gray-300 rounded dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <div class="flex justify-end gap-2">
+                <button id="upload-audio-cancel"
+                    class="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600">Cancel</button>
+                <button id="upload-audio-confirm"
+                    class="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600">Upload</button>
+            </div>
+        </div>
+    </div>
 
     <div name="modal" id="settings-modal" tabindex="-1" aria-hidden="true"
         class="flex items-center justify-center hidden backdrop-blur-sm fixed top-0 left-0 right-0 z-30 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -232,6 +248,10 @@
                             </button>
                         </div>
 
+                        <div
+                            class="mt-24 text-lg font-medium text-gray-900 border-b border-black dark:text-white dark:border-gray-400">
+                            Colors & Shapes</div>
+
                         <label class="block text-sm font-medium text-gray-900 dark:text-white">Clock</label>
                         <div class="flex flex-row items-center gap-1 justify-items-start">
                             <input type="color" name="color-picker"
@@ -267,6 +287,42 @@
                             <div name="shape-picker" class="inline-flex rounded-md shadow-sm" role="group"
                                 id="centers-shape"></div>
                         </div>
+
+                        <div
+                            class="mt-24 text-lg font-medium text-gray-900 border-b border-black dark:text-white dark:border-gray-400">
+                            Audio</div>
+
+                        <button id="upload-modal"
+                            class="w-full text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Upload
+                            Audio File</button>
+
+
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Times Up</label>
+                        <select id="timer-audio"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="blah">blah</option>
+                            <option value="donkey">Donkey</option>
+                        </select>
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">Transition</label>
+                        <select id="transition-audio"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="blah">blah</option>
+                            <option value="donkey">Donkey</option>
+                        </select>
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">1-minute Warning
+                        </label>
+                        <select id="1-min-warn-audio"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="blah">blah</option>
+                            <option value="donkey">Donkey</option>
+                        </select>
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white">3-minute Warning
+                        </label>
+                        <select id="3-min-warn-audio"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="blah">blah</option>
+                            <option value="donkey">Donkey</option>
+                        </select>
 
                         <div class="flex flex-row gap-2">
                             <button type="submit" id="save-settings"
@@ -644,11 +700,11 @@
     </div>
 </body>
 
+<script src="js/database.js"></script>
 <script src="app.js"></script>
 <script src="js/modals.js"></script>
 <script src="js/tippys.js"></script>
 <script src="js/toasts.js"></script>
-<script src="js/database.js"></script>
 <script src="js/settings.js"></script>
 <script src="js/listeners.js"></script>
 <script src="js/helpers.js"></script>

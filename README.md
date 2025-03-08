@@ -6,15 +6,14 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 ## To-do List
 
--   created a modal for uploading audio
--   added the different audio to the settings modal
-    -   transition audio
-    -   1 minute warning audio
-    -   3 minute warning audio
-    -   times up audio
--   all audio playing now uses the indexedDb files
-
 ## Change Log
+
+2025/03/08
+
+-   added two new shapes to the settings
+-   added audio selects to the settings that change the audio
+-   fixed: warning tracks no longer play if the time is below the warning. The window is now +6 seconds from the warning and exactly the warning time.
+-   audio files are now loaded from indexedDb instead of the file system
 
 2025/03/05
 

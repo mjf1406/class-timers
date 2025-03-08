@@ -33,26 +33,38 @@ async function initializeDb() {
         }
     }
 
-    // Prepare audio data for bulkPut
-    const audioEntries = await Promise.all(
-        audioFiles.map(async (filename) => {
+    // Process each audio file sequentially
+    for (const filename of audioFiles) {
+        try {
+            // Check if the audio file already exists in the db by querying the "name" field
+            const existingEntry = await db.audio
+                .where("name")
+                .equals(filename)
+                .first();
+            if (existingEntry) {
+                console.log(
+                    `Audio file ${filename} already exists in the database.`
+                );
+                continue;
+            }
+            // Load the audio file if not in the database
             const data = await loadAudioFile(filename);
-            return { name: filename, data };
-        })
-    );
-
-    // Filter out any failed loads
-    const validAudioEntries = audioEntries.filter((entry) => entry.data);
-
-    // Add audio files to the database
-    try {
-        await db.audio.bulkPut(validAudioEntries);
-        console.log(
-            "🕜 Class Timers | Audio files successfully added to IndexedDB"
-        );
-    } catch (error) {
-        console.error("Error adding audio files to IndexedDB:", error);
+            if (data) {
+                await db.audio.put({ name: filename, data });
+                console.log(`Added ${filename} to the database.`);
+            } else {
+                console.warn(
+                    `Skipped adding ${filename} due to loading issues.`
+                );
+            }
+        } catch (error) {
+            console.error(`Error processing ${filename}:`, error);
+        }
     }
+
+    console.log("🕜 Class Timers | Audio initialized!");
+    setupSettings();
+    console.log("🕜 Class Timers | Settings initialized!");
 }
 
 // Function to retrieve an audio file from IndexedDB using the single Dexie instance
@@ -65,7 +77,7 @@ async function getAudioFromDb(filename) {
         if (audioEntry) {
             return audioEntry.data;
         } else {
-            console.error(`Audio file ${filename} not found in IndexedDB`);
+            console.warn(`Audio file ${filename} not found in IndexedDB`);
             return null;
         }
     } catch (error) {
