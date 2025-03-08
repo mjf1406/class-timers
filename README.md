@@ -10,6 +10,8 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 2025/03/08
 
+-   added a heap load more icons to choose from
+-   switched the icon picker to a grid
 -   added two new shapes to the settings
 -   added audio selects to the settings that change the audio
 -   fixed: warning tracks no longer play if the time is below the warning. The window is now +6 seconds from the warning and exactly the warning time.

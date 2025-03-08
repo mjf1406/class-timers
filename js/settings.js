@@ -1,6 +1,5 @@
 /** @format */
 
-// const SHAPES = ['xmark','burst','certificate','circle','cloud','clover','crown','diamond','heart','shield','square','star']
 const SHAPES = [
     "xmark",
     "circle",
@@ -12,6 +11,113 @@ const SHAPES = [
     "star",
     "certificate",
     "burst",
+    "hippo",
+    "otter",
+    "paw",
+    "dog",
+    "cow",
+    "feather",
+    "fish",
+    "dragon",
+    "shrimp",
+    "horse",
+    "frog",
+    "dove",
+    "cat",
+    "award",
+    "medal",
+    "crown",
+    "trophy",
+    "biohazard",
+    "satellite-dish",
+    "satellite",
+    "meteor",
+    "shuttle-space",
+    "user-astronaut",
+    "robot",
+    "snowman",
+    "mitten",
+    "ice-cream",
+    "cookie",
+    "bucket",
+    "apple-whole",
+    "cake-candles",
+    "cookie-bite",
+    "puzzle-piece",
+    "gamepad",
+    "microscope",
+    "book-open",
+    "music",
+    "bell",
+    "bolt",
+    "fire",
+    "sun",
+    "water",
+    "leaf",
+    "seedling",
+    "plug",
+    "wind",
+    "radiation",
+    "lightbulb",
+    "poop",
+    "fan",
+    "atom",
+    "carrot",
+    "lemon",
+    "pepper-hot",
+    "flask",
+    "pizza-slice",
+    "hotdog",
+    "egg",
+    "drumstick-bite",
+    "drum",
+    "cheese",
+    "cloud-meatball",
+    "burger",
+    "bowl-rice",
+    "bone",
+    "bacon",
+    "stroopwafel",
+    "football",
+    "palette",
+    "paintbrush",
+    "piggy-bank",
+    "face-smile",
+    "face-tired",
+    "face-surprise",
+    "face-smile-wink",
+    "face-smile-beam",
+    "face-sad-tear",
+    "face-sad-cry",
+    "face-rolling-eyes",
+    "face-meh-blank",
+    "face-meh",
+    "face-laugh-wink",
+    "face-laugh-squint",
+    "face-laugh-beam",
+    "face-laugh",
+    "face-kiss-wink-heart",
+    "face-kiss-beam",
+    "face-kiss",
+    "face-grin-wink",
+    "face-grin-wide",
+    "face-grin-tongue-wink",
+    "face-grin-tongue-squint",
+    "face-grin-tongue",
+    "face-grin-tears",
+    "face-grin-stars",
+    "face-grin-squint-tears",
+    "face-grin-squint",
+    "face-grin-hearts",
+    "face-grin-beam-sweat",
+    "face-grin-beam",
+    "face-grin",
+    "face-grimace",
+    "face-frown-open",
+    "face-frown",
+    "face-flushed",
+    "face-dizzy",
+    "face-angry",
 ];
 const DEFAULTS = {
     clock: {
@@ -91,6 +197,17 @@ function populateShapePickers() {
 
     for (let index = 0; index < shapePickers.length; index++) {
         const element = shapePickers[index];
+
+        // Set grid layout with auto-fit for responsive columns
+        element.style.display = "grid";
+        element.style.gridTemplateColumns =
+            "repeat(auto-fit, minmax(40px, 1fr))";
+        element.style.gap = "8px";
+        element.style.maxHeight = "200px";
+        element.style.overflowY = "auto";
+        element.style.padding = "12px";
+        element.style.width = "100%"; // Ensure it uses available width
+
         const elementId = element.id.replace("-shape", "");
         const savedShape = elementId.includes("custom")
             ? null
@@ -104,8 +221,8 @@ function populateShapePickers() {
 
             const id = `${shape}-${index}`;
 
-            label.for = id;
             label.id = `label-${id}`;
+            label.classList.add("w-fit", "m-auto");
 
             input.type = "radio";
             input.name = `shape-radio-${elementId}`;
@@ -114,33 +231,38 @@ function populateShapePickers() {
             input.id = `input-${id}`;
 
             div.classList.add(
-                "px-4",
-                "py-2",
-                "text-sm",
+                "flex",
+                "items-center",
+                "justify-center",
+                // "w-full",
+                "h-full",
+                "h-10",
+                "w-10",
+                "aspect-square",
+                "text-xl",
                 "font-bold",
                 "text-gray-900",
                 "bg-white",
-                "border-t",
-                "border-b",
+                "border",
                 "border-gray-200",
+                "rounded-md",
                 "peer-checked:bg-blue-600",
+                "peer-checked:text-white",
                 "hover:bg-gray-100",
-                "hover:text-blue-700",
-                "focus:z-10",
                 "focus:ring-2",
                 "focus:ring-blue-700",
-                "focus:text-blue-700",
                 "dark:bg-gray-700",
                 "dark:border-gray-600",
                 "dark:text-white",
-                "dark:hover:text-white",
                 "dark:hover:bg-gray-600",
-                "dark:focus:ring-blue-500",
-                "dark:focus:text-white"
+                "dark:focus:ring-blue-500"
             );
             div.innerHTML = `<i class="fa-solid fa-${shape}"></i>`;
 
-            if (shape == savedShape || (savedShape == null && shape == "xmark"))
+            if (
+                shape === savedShape ||
+                (savedShape === null && shape === "xmark")
+            )
                 input.checked = true;
 
             label.appendChild(input);
@@ -150,6 +272,7 @@ function populateShapePickers() {
         }
     }
 }
+
 function setColorPickers() {
     const settings = JSON.parse(localStorage.getItem("class-timers-settings"));
     const colorPickers = document.getElementsByName("color-picker");

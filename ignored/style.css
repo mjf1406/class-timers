@@ -1,3 +1,5 @@
+/** @format */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,9 +12,10 @@ body {
     font-family: "quicksand", sans-serif;
     overflow: hidden;
 }
-@media (min-width: 768px) { /* Adjust breakpoint as needed */
+@media (min-width: 768px) {
+    /* Adjust breakpoint as needed */
     html {
-      scroll-behavior: smooth;
+        scroll-behavior: smooth;
     }
 }
 @media screen and (max-width: 950px) {
@@ -43,20 +46,20 @@ body {
     font-size: 14rem; /* 224px */
     line-height: 1; /* 16px */
 }
-.text-13xl {    
+.text-13xl {
     font-size: 16rem; /* 256px */
     line-height: 1; /* 16px */
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 #animated-icons i {
@@ -65,7 +68,13 @@ input[type=number] {
 }
 
 @keyframes changeSize {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(2); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
