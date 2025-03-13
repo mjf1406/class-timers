@@ -109,6 +109,7 @@ async function createAudioFromBuffer(filename) {
 
 // Replicate the playSoundMultipleTimes function from the original code
 function playSoundMultipleTimes(audio, repeatCount = 3) {
+    console.log("🚀 ~ playSoundMultipleTimes ~ audio:", audio);
     return new Promise((resolve) => {
         let playCount = 0;
 

@@ -344,7 +344,7 @@ function buildCustomTimerSettings() {
                 </button>
                 <input type="number" name="custom-timer-settings-duration-${timerId}" id="custom-timer-settings-duration-${timerId}" class="w-12 bg-gray-50 border border-gray-300 text-center text-gray-900 text-sm focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="${
             duration / 1000
-        } required="">
+        }" required="">
                 <button name="custom-timer-settings-duration-${timerId}" data-action="increment" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2.5 dark:bg-blue-400 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                     <i class="fa-solid fa-plus"></i>
                 </button>

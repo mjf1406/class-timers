@@ -62,6 +62,8 @@ let audioOneMinuteLeft;
     audioTimesUp = timesUp;
     audioThreeMinutesLeft = threeMinutes;
     audioOneMinuteLeft = oneMinute;
+
+    console.log("Audio loaded!");
 })();
 
 const body = document.getElementById("body");
@@ -233,7 +235,7 @@ async function timer() {
             if (
                 !threeMinutesPlayed &&
                 milliseconds <= 3 * MINUTE + 6 * SECOND &&
-                milliseconds >= 3 * MINUTE * SECOND
+                milliseconds >= 2 * MINUTE * 58 * SECOND
             ) {
                 playSoundMultipleTimes(audioThreeMinutesLeft);
                 threeMinutesPlayed = true;
