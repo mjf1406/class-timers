@@ -367,6 +367,21 @@ function buildCustomTimerSettings() {
             `custom-timer-settings-shape-${timerId}`
         );
 
+        // Set grid layout with auto-fit for responsive columns
+        shapesGroup.style.display = "grid";
+        shapesGroup.style.gridTemplateColumns =
+            "repeat(auto-fit, minmax(40px, 1fr))";
+        shapesGroup.style.gap = "8px";
+        shapesGroup.style.maxHeight = "200px";
+        shapesGroup.style.overflowY = "auto";
+        shapesGroup.style.padding = "12px";
+        shapesGroup.style.width = "100%"; // Ensure it uses available width
+
+        // const elementId = element.id.replace("-shape", "");
+        // const savedShapeTwo = elementId.includes("custom")
+        //     ? null
+        //     : defaults[elementId].shape;
+
         for (let idx = 0; idx < SHAPES.length; idx++) {
             const shape = SHAPES[idx];
             const label = document.createElement("label");
@@ -375,8 +390,8 @@ function buildCustomTimerSettings() {
 
             const id = `${shape}-${index}`;
 
-            label.for = id;
             label.id = `label-${id}`;
+            label.classList.add("w-fit", "m-auto");
 
             input.type = "radio";
             input.name = `shape-radio-settings-${timerId}`;
@@ -385,33 +400,38 @@ function buildCustomTimerSettings() {
             input.id = `input-${id}`;
 
             div.classList.add(
-                "px-4",
-                "py-2",
-                "text-sm",
+                "flex",
+                "items-center",
+                "justify-center",
+                // "w-full",
+                "h-full",
+                "h-10",
+                "w-10",
+                "aspect-square",
+                "text-xl",
                 "font-bold",
                 "text-gray-900",
                 "bg-white",
-                "border-t",
-                "border-b",
+                "border",
                 "border-gray-200",
+                "rounded-md",
                 "peer-checked:bg-blue-600",
+                "peer-checked:text-white",
                 "hover:bg-gray-100",
-                "hover:text-blue-700",
-                "focus:z-10",
                 "focus:ring-2",
                 "focus:ring-blue-700",
-                "focus:text-blue-700",
                 "dark:bg-gray-700",
                 "dark:border-gray-600",
                 "dark:text-white",
-                "dark:hover:text-white",
                 "dark:hover:bg-gray-600",
-                "dark:focus:ring-blue-500",
-                "dark:focus:text-white"
+                "dark:focus:ring-blue-500"
             );
             div.innerHTML = `<i class="fa-solid fa-${shape}"></i>`;
 
-            if (shape == savedShape || (savedShape == null && shape == "xmark"))
+            if (
+                shape === savedShape ||
+                (savedShape === null && shape === "xmark")
+            )
                 input.checked = true;
 
             label.appendChild(input);
@@ -538,26 +558,7 @@ saveSettings.addEventListener("click", function (e) {
     });
 
     (async function initAudio() {
-        // Fire off all audio creation promises concurrently
-        const [transition, timesUp, threeMinutes, oneMinute] =
-            await Promise.all([
-                createAudioFromBuffer(
-                    settingsData.defaults.transition.simultaneous_audio
-                ),
-                createAudioFromBuffer(settingsData.defaults.timer.end_audio),
-                createAudioFromBuffer(
-                    settingsData.defaults["3-min-warn"].end_audio
-                ),
-                createAudioFromBuffer(
-                    settingsData.defaults["1-min-warn"].end_audio
-                ),
-            ]);
-
-        // Assign the resulting audio objects to your variables
-        transitionTrack = transition;
-        audioTimesUp = timesUp;
-        audioThreeMinutesLeft = threeMinutes;
-        audioOneMinuteLeft = oneMinute;
+        await audioManager.loadAllAudio(settingsData);
     })();
     localStorage.setItem("class-timers-settings", JSON.stringify(settingsData));
 });

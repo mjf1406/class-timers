@@ -1,3 +1,5 @@
+/** @format */
+
 function populateCustomTimers(settings) {
     const customTimersDiv = document.getElementById("custom-timers");
     if (!settings)
@@ -58,16 +60,24 @@ function populateCustomTimers(settings) {
 
 const saveCustomTimer = document.getElementById("save-create-custom-timer");
 saveCustomTimer.addEventListener("click", function (e) {
+    e.preventDefault();
     const settingsData = JSON.parse(
         localStorage.getItem("class-timers-settings")
     );
 
     const name = document.getElementById("new-custom-timer-name");
     const duration = document.getElementById("create-custom-timer-duration");
-    let color = document.getElementById("new-custom-timer-color");
-    const shape = getSelectedValueFromRadioGroup(
-        "shape-radio-new-custom-timer"
+    const color = document.getElementById("new-custom-timer-color");
+
+    // Instead of using getSelectedValueFromRadioGroup, we directly query the checked radio input
+    const checkedShape = document.querySelector(
+        'input[name="shape-radio-new-custom-timer"]:checked'
     );
+    let shape = checkedShape ? checkedShape.value : "xmark";
+    if (shape === "xmark") {
+        shape = null;
+    }
+
     const rotationsQuantity = document.getElementById(
         "create-custom-timer-rotations-quantity"
     );
@@ -76,22 +86,22 @@ saveCustomTimer.addEventListener("click", function (e) {
     );
     const audio = null;
 
-    if (name.value == "" || duration.value == "")
+    if (name.value === "" || duration.value === "") {
         return makeToast("Please input a name/duration!", "warning");
+    }
 
     settingsData.custom_timers.push({
         id: generateId(),
         name: name.value,
-        transition: transition.value * 1000,
-        duration: duration.value * 1000,
+        transition: parseInt(transition.value) * 1000,
+        duration: parseInt(duration.value) * 1000,
         color: color.value,
         audio: audio,
-        shape: shape == "xmark" ? null : shape,
+        shape: shape,
         rotationsQuantity: rotationsQuantity.value,
     });
     localStorage.setItem("class-timers-settings", JSON.stringify(settingsData));
 
-    e.preventDefault();
     document
         .getElementById("create-custom-timer-modal")
         .classList.toggle("hidden");
@@ -104,9 +114,9 @@ saveCustomTimer.addEventListener("click", function (e) {
     duration.value = 60;
     color.value = "#000";
     transition.value = 60;
-    // audio.value = ''
     rotationsQuantity.value = 0;
 });
+
 function deleteCustomTimerById(timerId) {
     const settingsData = JSON.parse(
         localStorage.getItem("class-timers-settings")

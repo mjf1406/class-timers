@@ -86,7 +86,6 @@ async function getAudioFromDb(filename) {
     }
 }
 
-// Function to create an Audio object from ArrayBuffer (reconstruct Blob)
 async function createAudioFromBuffer(filename) {
     const bufferData = await getAudioFromDb(filename);
     if (bufferData) {
@@ -98,7 +97,7 @@ async function createAudioFromBuffer(filename) {
             audioElement.oncanplaythrough = () => {
                 resolve(audioElement);
                 // Optionally revoke the URL after loading
-                URL.revokeObjectURL(objectUrl);
+                // URL.revokeObjectURL(objectUrl);
             };
             audioElement.onerror = () =>
                 reject(new Error("Failed to load audio"));

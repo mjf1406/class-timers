@@ -1,9 +1,9 @@
 /** @format */
 // app.js
 
+// Global error handler
 let errorDisplayed = false;
-
-window.addEventListener("error", function (e) {
+window.addEventListener("error", (e) => {
     if (!errorDisplayed) {
         errorDisplayed = true;
         alert(
@@ -12,12 +12,9 @@ window.addEventListener("error", function (e) {
     }
 });
 
-var timerInterval;
-var clockInterval;
-var transitionInterval;
-var isPaused = false;
-var rotationsInterval;
-
+// Global variables and timer intervals
+let timerInterval, clockInterval, transitionInterval, rotationsInterval;
+let isPaused = false;
 const SECOND = 1000;
 const MINUTE = 60000;
 const TEN_SECONDS = 10000;
@@ -26,6 +23,10 @@ const TIMER_DONE_AUDIO = 10000;
 const TIMER_OFFSET = SECOND * 1;
 const AUTO_CANCEL_TIMER_THRESHOLD = SECOND * 30 - SECOND;
 
+let threeMinutesPlayed = false;
+let oneMinutePlayed = false;
+
+// Retrieve or initialize user settings
 let userSettings = JSON.parse(localStorage.getItem("class-timers-settings"));
 if (!userSettings) {
     userSettings = {
@@ -35,92 +36,148 @@ if (!userSettings) {
     localStorage.setItem("class-timers-settings", JSON.stringify(userSettings));
 }
 
-// const transitionTrack = new Audio(`data/audio/30s-jeopardy-song.mp3`);
-// const audioTimesUp = new Audio(`data/audio/10s-calm-alarm.mp3`);
-// const audioThreeMinutesLeft = new Audio(`data/audio/3-minutes-warning.mp3`);
-// const audioOneMinuteLeft = new Audio(`data/audio/1-minute-warning.mp3`);
+/**
+ * AudioManager class handles all audio operations and tracks playing states.
+ */
+class AudioManager {
+    constructor() {
+        this.audio = {};
+        this.playing = {}; // Track playing status for each audio
+    }
 
-// Declare your audio variables
-let transitionTrack;
-let audioTimesUp;
-let audioThreeMinutesLeft;
-let audioOneMinuteLeft;
+    async loadAudio(name, bufferSource) {
+        try {
+            const audioEl = await createAudioFromBuffer(bufferSource);
+            this.audio[name] = audioEl;
+            this.playing[name] = false;
+            // Update playing status when audio naturally ends (if not looping)
+            audioEl.addEventListener("ended", () => {
+                if (!audioEl.loop) {
+                    this.playing[name] = false;
+                }
+            });
+        } catch (error) {
+            console.error(`Error loading audio "${name}":`, error);
+        }
+    }
 
+    async loadAllAudio(settings) {
+        await Promise.all([
+            this.loadAudio(
+                "transitionTrack",
+                settings.defaults.transition.simultaneous_audio
+            ),
+            this.loadAudio("timesUp", settings.defaults.timer.end_audio),
+            this.loadAudio(
+                "threeMinutes",
+                settings.defaults["3-min-warn"].end_audio
+            ),
+            this.loadAudio(
+                "oneMinute",
+                settings.defaults["1-min-warn"].end_audio
+            ),
+        ]);
+        console.log("Audio loaded!");
+    }
+
+    play(name, { loop = false } = {}) {
+        const audio = this.audio[name];
+        if (!audio) {
+            console.error(`Audio "${name}" not found.`);
+            return;
+        }
+        // If already playing, do not trigger another play request
+        if (!audio.paused && this.playing[name]) return;
+        audio.loop = loop;
+        audio.currentTime = 0;
+        this.playing[name] = true;
+        audio.play().catch((error) => {
+            console.error(`Failed to play audio "${name}":`, error);
+            this.playing[name] = false;
+        });
+    }
+
+    stop(name) {
+        const audio = this.audio[name];
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+            this.playing[name] = false;
+        }
+    }
+
+    async playMultipleTimes(name, times = 3, delay = 100) {
+        const audio = this.audio[name];
+        if (!audio) {
+            console.error(`Audio "${name}" not found.`);
+            return;
+        }
+        for (let i = 0; i < times; i++) {
+            try {
+                audio.currentTime = 0;
+                await audio.play();
+                await new Promise((resolve) => {
+                    audio.addEventListener("ended", resolve, { once: true });
+                });
+            } catch (error) {
+                console.error(
+                    `Error playing "${name}" on attempt ${i + 1}:`,
+                    error
+                );
+            }
+            // Delay between plays
+            await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+    }
+}
+
+var audioManager = new AudioManager();
 (async function initAudio() {
-    // Fire off all audio creation promises concurrently
-    const [transition, timesUp, threeMinutes, oneMinute] = await Promise.all([
-        createAudioFromBuffer(
-            userSettings.defaults.transition.simultaneous_audio
-        ),
-        createAudioFromBuffer(userSettings.defaults.timer.end_audio),
-        createAudioFromBuffer(userSettings.defaults["3-min-warn"].end_audio),
-        createAudioFromBuffer(userSettings.defaults["1-min-warn"].end_audio),
-    ]);
-
-    // Assign the resulting audio objects to your variables
-    transitionTrack = transition;
-    audioTimesUp = timesUp;
-    audioThreeMinutesLeft = threeMinutes;
-    audioOneMinuteLeft = oneMinute;
-
-    console.log("Audio loaded!");
+    await audioManager.loadAllAudio(userSettings);
 })();
 
-const body = document.getElementById("body");
-
-let threeMinutesPlayed = false;
-let oneMinutePlayed = false;
-
-// $("#font-awesome-picker").iconpicker();
-
+// Utility functions for time and date display
 function setTime() {
-    let locale =
+    const locale =
         navigator.languages && navigator.languages.length
             ? navigator.languages[0]
             : navigator.language;
-    let time = new Date()
-        .toLocaleTimeString(locale, undefined)
+    const time = new Date()
+        .toLocaleTimeString(locale)
         .replace("PM", "")
         .replace("AM", "");
-    let divTime = document.getElementById("time");
-    divTime.innerHTML = time;
+    document.getElementById("time").innerHTML = time;
 }
+
 function setDate() {
-    let locale =
+    const locale =
         navigator.languages && navigator.languages.length
             ? navigator.languages[0]
             : navigator.language;
-    let dateOptions = {
+    const dateOptions = {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
     };
-    let date = new Date().toLocaleDateString(locale, dateOptions);
-    let divDate = document.getElementById("date");
-    divDate.innerHTML = date;
+    const date = new Date().toLocaleDateString(locale, dateOptions);
+    document.getElementById("date").innerHTML = date;
 }
+
+// Timer and UI functions
 function cancelTimer(color, shape) {
     clearInterval(timerInterval);
     clearInterval(transitionInterval);
-
-    transitionTrack.stop();
-    audioTimesUp.stop();
+    audioManager.stop("transitionTrack");
+    audioManager.stop("timesUp");
 
     const endTimeDiv = document.getElementById("timer-end");
     endTimeDiv.classList.add("hidden");
 
-    // Reveal timer adjustment buttons
-    const adjustmentButtons = document.getElementById(
-        "timer-adjustment-buttons"
-    );
-    adjustmentButtons.classList.add("hidden");
-
-    // Reveal default timer and custom timer buttons
-    const defaultTimersGroup = document.getElementById("timer-buttons");
-    const customTimersGroup = document.getElementById("custom-timers");
-    defaultTimersGroup.classList.remove("hidden");
-    customTimersGroup.classList.remove("hidden");
+    // Restore UI buttons
+    document.getElementById("timer-adjustment-buttons").classList.add("hidden");
+    document.getElementById("timer-buttons").classList.remove("hidden");
+    document.getElementById("custom-timers").classList.remove("hidden");
 
     const customTimerTitle = document.getElementById("custom-timer-title");
     customTimerTitle.classList.add("hidden");
@@ -132,10 +189,9 @@ function cancelTimer(color, shape) {
 
     const classes = getClassesThatInclude("bg", "body");
     removeClassesFromElement(classes, "body");
+    const body = document.getElementById("body");
     body.style.backgroundColor = color;
-
     color = new Color(color);
-
     setColors(color);
     populateShapes(shape);
     animateIcons();
@@ -143,35 +199,30 @@ function cancelTimer(color, shape) {
     threeMinutesPlayed = false;
     oneMinutePlayed = false;
 }
+
 function pauseTimer() {
     if (isPaused) return makeToast("The timer is already paused!", "warning");
-
     isPaused = true;
-
-    const timerDiv = document.getElementById("time");
-    timerDiv.classList.toggle("opacity-25");
-
+    document.getElementById("time").classList.toggle("opacity-25");
     updateAnimationState(isPaused);
+    // Stop times-up audio if playing
+    audioManager.stop("timesUp");
 }
+
 function resumeTimer() {
     if (!isPaused) return makeToast("The timer is already running!", "warning");
-
     isPaused = false;
-
     const timerDiv = document.getElementById("time");
-    const currentDuration = parseInt(timerDiv.name);
-    const adjustingTimer = true;
-    setEndTime(currentDuration, adjustingTimer);
-
+    const currentDuration = parseInt(timerDiv.name, 10);
+    setEndTime(currentDuration, true);
     timerDiv.classList.toggle("opacity-25");
-
     updateAnimationState(isPaused);
 }
-function setTimer(durationMilliseconds, color, shape, transition) {
-    if (!transition) transition = false;
-    const divTimer = document.getElementById("time");
-    divTimer.innerHTML = convertMsToTime(durationMilliseconds);
-    divTimer.name = durationMilliseconds;
+
+function setTimer(durationMilliseconds, color, shape, transition = false) {
+    const timerDiv = document.getElementById("time");
+    timerDiv.innerHTML = convertMsToTime(durationMilliseconds);
+    timerDiv.name = durationMilliseconds;
 
     localStorage.setItem("repeated", false);
     localStorage.setItem("duration", durationMilliseconds);
@@ -179,42 +230,32 @@ function setTimer(durationMilliseconds, color, shape, transition) {
     clearInterval(timerInterval);
     clearInterval(clockInterval);
 
-    // Hide default timer and custom timer buttons
-    const defaultTimersGroup = document.getElementById("timer-buttons");
-    const customTimersGroup = document.getElementById("custom-timers");
-    defaultTimersGroup.classList.add("hidden");
-    customTimersGroup.classList.add("hidden");
-
-    // Reveal timer adjustment buttons
-    const adjustmentButtons = document.getElementById(
-        "timer-adjustment-buttons"
-    );
-    const modifyTimerButtonsPlus = document.getElementById(
-        "timer-adjustment-buttons-plus"
-    );
-    const modifyTimerButtonsMinus = document.getElementById(
-        "timer-adjustment-buttons-minus"
-    );
-    const playButton = document.getElementById("play-timer");
-    const pauseButton = document.getElementById("pause-timer");
-
-    adjustmentButtons.classList.remove("hidden");
-    modifyTimerButtonsMinus.classList.remove("hidden");
-    modifyTimerButtonsPlus.classList.remove("hidden");
-    pauseButton.classList.remove("hidden");
-    playButton.classList.remove("hidden");
+    // Hide default/custom buttons; show adjustment buttons
+    document.getElementById("timer-buttons").classList.add("hidden");
+    document.getElementById("custom-timers").classList.add("hidden");
+    document
+        .getElementById("timer-adjustment-buttons")
+        .classList.remove("hidden");
+    document
+        .getElementById("timer-adjustment-buttons-plus")
+        .classList.remove("hidden");
+    document
+        .getElementById("timer-adjustment-buttons-minus")
+        .classList.remove("hidden");
+    document.getElementById("pause-timer").classList.remove("hidden");
+    document.getElementById("play-timer").classList.remove("hidden");
 
     timerInterval = setInterval(timer, SECOND);
 
-    // Adjust the background color
     if (color) {
         const classes = getClassesThatInclude("bg", "body");
         removeClassesFromElement(classes, "body");
+        const body = document.getElementById("body");
         body.style.backgroundColor = color;
         color = new Color(color);
         setColors(color);
     }
-    if (shape != undefined) {
+    if (shape !== undefined) {
         populateShapes(shape);
         animateIcons();
     }
@@ -222,119 +263,74 @@ function setTimer(durationMilliseconds, color, shape, transition) {
     threeMinutesPlayed = false;
     oneMinutePlayed = false;
 }
-async function timer() {
-    transitionTrack.loop = true;
-    audioTimesUp.loop = true;
 
-    let timerState = localStorage.getItem("state");
-    let divTimer = document.getElementById("time");
-    let milliseconds = parseInt(divTimer.name);
+function timer() {
+    const timerState = localStorage.getItem("state");
+    const timerDiv = document.getElementById("time");
+    let milliseconds = parseInt(timerDiv.name, 10);
+
     if (!isPaused) {
-        if (timerState != "rotations") {
-            // Check for 3 minutes left
+        // Play warning sounds if not in "rotations" state
+        if (timerState !== "rotations") {
             if (
                 !threeMinutesPlayed &&
                 milliseconds <= 3 * MINUTE + 6 * SECOND &&
-                milliseconds >= 2 * MINUTE * 58 * SECOND
+                milliseconds >= 2 * MINUTE + 54 * SECOND
             ) {
-                playSoundMultipleTimes(audioThreeMinutesLeft);
+                audioManager.playMultipleTimes("threeMinutes", 3);
                 threeMinutesPlayed = true;
             }
-
-            // Check for 1 minute left
             if (
                 !oneMinutePlayed &&
                 milliseconds <= MINUTE + 6 * SECOND &&
-                milliseconds >= MINUTE
+                milliseconds >= 54 * SECOND
             ) {
-                playSoundMultipleTimes(audioOneMinuteLeft);
+                audioManager.playMultipleTimes("oneMinute", 3);
                 oneMinutePlayed = true;
             }
         }
-        if (timerState != "rotations" && milliseconds <= SECOND * 1.5)
-            audioTimesUp.play();
+
+        // Start times-up sound when near zero, but only trigger once per run.
+        if (timerState !== "rotations" && milliseconds <= 1.5 * SECOND) {
+            audioManager.play("timesUp", { loop: true });
+        }
+
+        // Auto-cancel timer if it runs too long
         if (milliseconds <= -AUTO_CANCEL_TIMER_THRESHOLD) {
             const settings = JSON.parse(
                 localStorage.getItem("class-timers-settings")
             );
             const data = settings.defaults.clock;
-            const color = data.color;
-            const shape = data.shape;
-            cancelTimer(color, shape);
+            cancelTimer(data.color, data.shape);
         }
-        milliseconds = milliseconds - SECOND;
-        divTimer.innerHTML = convertMsToTime(milliseconds);
-        divTimer.name = milliseconds;
+
+        milliseconds -= SECOND;
+        timerDiv.innerHTML = convertMsToTime(milliseconds);
+        timerDiv.name = milliseconds;
     }
 }
+
 function setEndTime(timerDuration, adjustingTimer) {
-    const state = localStorage.getItem("state");
-    if (state == "rotations") return;
+    if (localStorage.getItem("state") === "rotations") return;
     const locale =
         navigator.languages && navigator.languages.length
             ? navigator.languages[0]
             : navigator.language;
-    const time = new Date();
-    const newTime = new Date(time.getTime() + timerDuration); // Adds the timerDuration to the current date
-
+    const newTime = new Date(Date.now() + timerDuration);
     const divTimerEnd = document.getElementById("timer-end");
     if (!adjustingTimer) divTimerEnd.classList.toggle("hidden");
-    divTimerEnd.innerHTML = newTime.toLocaleTimeString(locale, undefined);
-}
-function playSoundMultipleTimes(audio, repeatCount = 3) {
-    return new Promise((resolve) => {
-        let playCount = 0;
-
-        // Function to play a single instance
-        function playNext() {
-            if (playCount >= repeatCount) {
-                resolve();
-                return;
-            }
-
-            audio.currentTime = 0;
-
-            // Play the audio
-            audio
-                .play()
-                .then(() => {
-                    playCount++;
-
-                    // Wait for the current playback to finish before starting the next one
-                    audio.addEventListener(
-                        "ended",
-                        () => {
-                            // Small delay to ensure clear separation between plays
-                            setTimeout(playNext, 100);
-                        },
-                        { once: true }
-                    ); // Use once: true to prevent memory leaks
-                })
-                .catch((error) => {
-                    console.error(
-                        `Failed to play audio on attempt ${playCount + 1}:`,
-                        error
-                    );
-                    playCount++;
-                    playNext(); // Continue to next attempt even if there's an error
-                });
-        }
-
-        playNext();
-    });
+    divTimerEnd.innerHTML = newTime.toLocaleTimeString(locale);
 }
 
-// Show the modal when the "Upload Audio File" button is clicked
+// File upload handling for audio files
 document.getElementById("upload-modal").addEventListener("click", () => {
     document.getElementById("upload-audio-modal").classList.remove("hidden");
 });
 
-// Hide the modal when "Cancel" is clicked
 document.getElementById("upload-audio-cancel").addEventListener("click", () => {
     document.getElementById("upload-audio-modal").classList.add("hidden");
 });
 
-// Handle file upload when "Upload" is clicked
 document
     .getElementById("upload-audio-confirm")
     .addEventListener("click", async () => {
@@ -348,11 +344,9 @@ document
 
         try {
             const arrayBuffer = await file.arrayBuffer();
-            // Insert into Dexie database (using the same 'db' instance from your code)
             await db.audio.put({ name: file.name, data: arrayBuffer });
             console.log(`Uploaded ${file.name} to database.`);
             alert(`Uploaded ${file.name} successfully.`);
-            // Optionally clear the file input and hide the modal
             fileInput.value = "";
             document
                 .getElementById("upload-audio-modal")
@@ -364,6 +358,5 @@ document
         const settings = JSON.parse(
             localStorage.getItem("class-timers-settings")
         );
-        const defaults = settings.defaults;
-        populateAudioSelects(defaults);
+        populateAudioSelects(settings.defaults);
     });

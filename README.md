@@ -8,6 +8,14 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 ## Change Log
 
+2025/03/13
+
+-   audio now works correctly
+-   fixed: there was a missing closing double quotations causing a console warning
+-   fixed: rotations now function again. They broke due to custom audio changes
+-   fixed: custom timer settings now render the icon grid correctly
+-   fixed: custom timers can now be saved properly
+
 2025/03/08
 
 -   added a heap load more icons to choose from
