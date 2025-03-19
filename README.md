@@ -6,6 +6,12 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 ## To-do List
 
+-   added centers rotation content
+-   created modal to add a center and its info
+-   created a UI element in the rotations modal to add created centers to. This allows for centers to be easily repeated if needed.
+-   can easily update the title when adding a center to the rotations to do
+-   when adding a center, the user is informed that the title can exceed 15 characters, but best if it does not in order to fit on one line
+
 ## Change Log
 
 2025/03/13
