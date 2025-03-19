@@ -107,6 +107,10 @@ async function setRotationsTimers(
     shape
 ) {
     localStorage.setItem("state", "rotations");
+    const timeDiv = document.getElementById("time");
+    timeDiv.classList.remove("text-12xl");
+    timeDiv.classList.add("text-10xl");
+
     const timerTitle = document.getElementById("custom-timer-title");
     timerTitle.classList.remove("hidden");
 
