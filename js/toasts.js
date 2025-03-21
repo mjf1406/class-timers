@@ -1,3 +1,5 @@
+/** @format */
+
 let lastToastTime = 0;
 const toastDebounceDelay = 3000; // 2 seconds, adjust as needed
 
@@ -20,33 +22,36 @@ function makeToast(content, type) {
 
 function showToast(content, type) {
     let backgroundColor;
-    if (type === 'success') backgroundColor = '#166534';
-    else if (type === 'warning') backgroundColor = '#fde047';
-    else if (type === 'error') backgroundColor = '#b91c1c';
-    const bgColor = new Color(backgroundColor)
+    if (type === "success") backgroundColor = "#166534";
+    else if (type === "warning") backgroundColor = "#fde047";
+    else if (type === "error") backgroundColor = "#b91c1c";
+    const bgColor = new Color(backgroundColor);
 
     let color;
-    if (type === 'success') color = '#fff';
-    else if (type === 'warning') color = '#000';
-    else if (type === 'error') color = '#fff';
+    if (type === "success") color = "#fff";
+    else if (type === "warning") color = "#000";
+    else if (type === "error") color = "#fff";
 
     let icon;
-    if (type === 'success') icon = '<i class="fa-solid fa-check"></i>';
-    else if (type === 'warning') icon = '<i class="fa-solid fa-exclamation"></i>';
-    else if (type === 'error') icon = '<i class="fa-solid fa-xmark"></i>';
+    if (type === "success") icon = '<i class="fa-solid fa-check"></i>';
+    else if (type === "warning")
+        icon = '<i class="fa-solid fa-exclamation"></i>';
+    else if (type === "error") icon = '<i class="fa-solid fa-xmark"></i>';
 
     Toastify({
-        text: `<span class="p-2 px-4 rounded-md" style="background-color: ${bgColor.darken(0.2)};">${icon}</span> ${content}`,
+        text: `<div class="flex gap-2 justify-center items-center"><div class="p-2 px-4 rounded-md" style="background-color: ${bgColor.darken(
+            0.2
+        )};">${icon}</div> <div>${content}</div></div>`,
         offset: {
             x: 10,
-            y: 10
+            y: 10,
         },
         gravity: "bottom",
         position: "left",
         style: {
             background: backgroundColor,
             color: color,
-            zIndex: 1000
+            zIndex: 1000,
         },
         escapeMarkup: false,
     }).showToast();

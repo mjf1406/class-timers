@@ -111,8 +111,20 @@ async function setRotationsTimers(
     timeDiv.classList.remove("text-12xl");
     timeDiv.classList.add("text-10xl");
 
+    const centersAddedDiv = document.getElementById("centers-added");
+    const addedCenters = centersAddedDiv.children;
+    for (let index = 0; index < addedCenters.length; index++) {
+        const element = addedCenters[index];
+        console.log("🚀 ~ element:", element);
+    }
+
     const timerTitle = document.getElementById("custom-timer-title");
     timerTitle.classList.remove("hidden");
+
+    const rotationsInfoDiv = document.getElementById(
+        "rotations-info-container"
+    );
+    rotationsInfoDiv.classList.remove("hidden");
 
     const settingsData = JSON.parse(
         localStorage.getItem("class-timers-settings")

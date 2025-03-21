@@ -16,6 +16,7 @@ function saveCenter() {
     if (!settings.centers) settings.centers = [];
 
     const centerData = {
+        id: generateId(),
         title: title,
         listType: listType,
         listItems: listItems,

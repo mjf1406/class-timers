@@ -14,6 +14,13 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 ## Change Log
 
+2025/03/21
+
+-   the toast is now a proper flexbox
+-   can now add centers to the rotations modal UI
+-   rotations info div now becomes visible when starting rotations
+-   rotations info div now becomes hidden when cancelling rotations
+
 2025/03/13
 
 -   audio now works correctly
