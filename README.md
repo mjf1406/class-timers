@@ -14,6 +14,15 @@ A website that is meant to be displayed on a large monitor for students to see h
 
 ## Change Log
 
+2025/03/22
+
+-   centers cards transition color according to the background color of the timer
+-   centers select list is cleared when starting rotations
+-   selected centers data now populates the display div when rotations are active
+-   added description to center
+-   station name and center title have their lengths displayed to the user now
+-   added a station input so the user can assign centers to different stations
+
 2025/03/21
 
 -   the toast is now a proper flexbox

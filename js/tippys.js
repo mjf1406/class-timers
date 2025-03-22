@@ -12,6 +12,9 @@ tippy("#add-custom-timer", {
 tippy("#add-center", {
     content: "Create center",
 });
+tippy("#add-station", {
+    content: "Create station",
+});
 tippy("#custom-timer-settings", {
     content: "Custom timers settings",
 });

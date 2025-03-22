@@ -1,3 +1,5 @@
+/** @format */
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function padTo2Digits(num) {
@@ -60,3 +62,15 @@ Audio.prototype.stop = function () {
     this.pause();
     this.currentTime = 0;
 };
+function countCharacters(elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.error(`Element with id "${elementId}" not found.`);
+        return 0;
+    }
+
+    // Use value if available (for input and textarea), otherwise fall back to textContent
+    const text =
+        element.value !== undefined ? element.value : element.textContent;
+    return text.length;
+}

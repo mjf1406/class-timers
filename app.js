@@ -3,14 +3,14 @@
 
 // Global error handler
 let errorDisplayed = false;
-window.addEventListener("error", (e) => {
-    if (!errorDisplayed) {
-        errorDisplayed = true;
-        alert(
-            "An error occurred that prevented the page from loading properly. Please reload the page."
-        );
-    }
-});
+// window.addEventListener("error", (e) => {
+//     if (!errorDisplayed) {
+//         errorDisplayed = true;
+//         alert(
+//             "An error occurred that prevented the page from loading properly. Please reload the page."
+//         );
+//     }
+// });
 
 // Global variables and timer intervals
 let timerInterval, clockInterval, transitionInterval, rotationsInterval;

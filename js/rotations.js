@@ -111,12 +111,35 @@ async function setRotationsTimers(
     timeDiv.classList.remove("text-12xl");
     timeDiv.classList.add("text-10xl");
 
-    const centersAddedDiv = document.getElementById("centers-added");
-    const addedCenters = centersAddedDiv.children;
-    for (let index = 0; index < addedCenters.length; index++) {
-        const element = addedCenters[index];
-        console.log("🚀 ~ element:", element);
+    const addedCenters = document.getElementsByName("add-center-to-rotations");
+    const addedStations = document.getElementsByName(
+        "add-station-to-rotations"
+    );
+
+    const centersCount = addedCenters.length;
+    const stationsCount = addedStations.length;
+
+    if (centersCount != stationsCount) {
+        return makeToast(`Something went wrong. Please try again.`, "error");
     }
+
+    const centers = [];
+    for (let index = 0; index < centersCount; index++) {
+        const center = addedCenters[index];
+        const station = addedStations[index];
+
+        const centerId = center.value;
+        const stationId = station.value;
+        centers.push({
+            centerId,
+            stationId,
+        });
+    }
+
+    populateCentersInformation(centers);
+
+    const centersSelectList = document.getElementById("centers-added");
+    centersSelectList.innerHTML = "";
 
     const timerTitle = document.getElementById("custom-timer-title");
     timerTitle.classList.remove("hidden");
@@ -131,13 +154,21 @@ async function setRotationsTimers(
     );
     const transitionColor = settingsData.defaults.transition.color;
     const transitionShape = settingsData.defaults.transition.shape;
+    const transitionCardColor = new Color(transitionColor)
+        .lighten(0.1)
+        .toString();
     const rotationsColor = color ? color : settingsData.defaults.centers.color;
     const rotationsShape = shape ? shape : settingsData.defaults.centers.shape;
+    const centerCardColor = new Color(rotationsColor).lighten(0.15).toString();
+    const centersCards = document.getElementsByName("centers-card");
 
     for (let i = 0; i < numberOfRotations; i++) {
         timerTitle.classList.remove("hidden");
         timerTitle.innerHTML = `Rotation ${i + 1} / ${numberOfRotations}`;
         setTimer(rotationDuration, rotationsColor, rotationsShape);
+        for (const element of centersCards) {
+            element.style.background = centerCardColor;
+        }
         updateUI("add");
         await sleep(rotationDuration);
         await sleep(TIMER_OFFSET); // Ensure TIMER_OFFSET is defined in your app.js
@@ -146,7 +177,9 @@ async function setRotationsTimers(
         if (numberOfRotations === i + 1) continue;
 
         setTimer(transitionDuration, transitionColor, transitionShape, true);
-        // Use AudioManager to play the transition audio in loop mode
+        for (const element of centersCards) {
+            element.style.background = transitionCardColor;
+        }
         audioManager.play("transitionTrack", { loop: true });
         updateUI("add");
         await sleep(transitionDuration);
