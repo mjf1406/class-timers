@@ -94,13 +94,13 @@ function createCenterInfoDiv(center, station, centerCardColor) {
     const html = `
       <div name="centers-card" class="col-span-1 rounded-2xl p-2" style="background: ${centerCardColor};" id="${containerId}">
       ${stationHTML}
-      <div class="text-4xl w-full mb-2 text-center font-bold" id="${titleId}">${
+      <div class="text-4xl 3xl:text-6xl w-full mb-2 text-center font-bold" id="${titleId}">${
         center.title
     }</div>
-      <div class="text-xl italic" id="${titleId}-description">${
+      <div class="text-xl 3xl:text-4xl italic" id="${titleId}-description">${
         center.description ?? ""
     }</div>
-        <div id="${infoId}" class="pt-3 text-lg">
+        <div id="${infoId}" class="pt-3 text-xl 3xl:text-4xl">
           <ul class="${center.listType} list-inside">
             ${listItemsHTML}
           </ul>
